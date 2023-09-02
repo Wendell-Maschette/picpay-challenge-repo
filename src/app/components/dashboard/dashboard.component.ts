@@ -7,6 +7,7 @@ import { TaskService } from 'src/app/services/task.service';
 import { ParamsForGetAllTasks } from 'src/app/models/params-for-get-all-tasks.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalInsertTaskComponent } from '../modal-insert-task/modal-insert-task.component';
+import { ModalConfirmationDeleteComponent } from '../modal-confirmation-delete/modal-confirmation-delete.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -132,6 +133,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(ModalInsertTaskComponent, {
       width: '400px', 
       data: itemToEdit,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      result ? window.location.reload() : 
+      console.log(`O modal foi fechado e retornou: ${result}`);
+    });
+  }
+
+  openModalConfirmationDelete(taskId: number) {
+    const dialogRef = this.dialog.open(ModalConfirmationDeleteComponent, {
+      width: '400px', 
+      data: taskId,
     });
 
     dialogRef.afterClosed().subscribe(result => {

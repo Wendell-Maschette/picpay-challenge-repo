@@ -62,7 +62,7 @@
       <button mat-icon-button color="accent" (click)="openModal(item)">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button color="warn" >
+      <button mat-icon-button color="warn" (click)="openModalConfirmationDelete(item.id)">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-cell>
