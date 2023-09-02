@@ -15,10 +15,10 @@ export class TaskService {
   constructor(private http: HttpClient) { }
 
   getAllTasks(reqParams: ParamsForGetAllTasks): Observable<Task[]> {
-
     let queryParams = new HttpParams();
 
-    typeof reqParams.actualPage === 'string' ? queryParams = queryParams.set('_page', reqParams.actualPage) : '';
+    typeof reqParams.actualPage === 'number' ? queryParams = queryParams.set('_page', reqParams.actualPage) : '';
+    typeof reqParams.limit === 'number' ? queryParams = queryParams.set('_limit', reqParams.limit) : '';
 
     const activeFilter = reqParams.filters.name || reqParams.filters.date || reqParams.filters.title;
     if (activeFilter) {
@@ -26,8 +26,8 @@ export class TaskService {
       activeFilterKey ? queryParams = queryParams.set(activeFilterKey, activeFilter.trim()) : ''
     }
 
-    reqParams.sort ? queryParams = queryParams.set('_sort', reqParams.sort) : '';
-    reqParams.order ? queryParams = queryParams.set('_order', reqParams.order) : '';
+    reqParams.sort ? queryParams = queryParams.set('_sort', reqParams.sort) : undefined;
+    reqParams.order ? queryParams = queryParams.set('_order', reqParams.order) : undefined;
 
     let url = `${this.baseUrl}/tasks`;
 

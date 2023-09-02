@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,15 +13,16 @@ import { ParamsForGetAllTasks } from 'src/app/models/params-for-get-all-tasks.in
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
   dataSource!: MatTableDataSource<Task>;
   displayedColumns: string[] = ['name', 'title', 'value', 'date', 'isPayed'];
-  actualPage: string | null = '1'
-  sortField: string | undefined | null = null;
-  sortOrder: 'asc' | 'desc' = 'asc';
+  actualPage: number = 1;
+  pageSize: number = 10;
+  totalItems: number = 0;
+  sortField?: 'name' | 'title' | 'value' | 'date' | 'isPayed';
+  sortOrder?: 'asc' | 'desc';
 
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('dateInput') dateInput!: ElementRef<HTMLInputElement>;
 
   filterForm: FormGroup;
@@ -40,9 +41,27 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.dataSource = new MatTableDataSource();
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+  }
 
+  ngAfterViewInit(): void {
     this.filterTasks();
+  }
+
+  getTasks(reqParams: ParamsForGetAllTasks) {
+
+    this.taskService.getAllTasks(reqParams).subscribe(
+      (tasksDataResponse) => {
+        this.dataSource.data = tasksDataResponse;
+      }
+    );
+    this.taskService.getAllTasks({
+      filters: '',
+      order: ''
+    }).subscribe(
+      (totalItemsResponse) => {
+        this.totalItems = totalItemsResponse.length
+      }
+    )
   }
 
   isSameDate(date1: Date, date2: Date): boolean {
@@ -54,16 +73,12 @@ export class DashboardComponent implements OnInit {
   }
 
   filterTasks() {
-    const reqParams: ParamsForGetAllTasks = {
+    const filterParams: ParamsForGetAllTasks = {
       filters: this.filterForm.value,
       actualPage: this.actualPage
     }
 
-    this.taskService.getAllTasks(reqParams).subscribe(
-      (filteredTasks) => {
-        this.dataSource.data = filteredTasks;
-      }
-    );
+    this.getTasks(filterParams)
   }
 
   updateAndApplyFilter(fieldName: string) {
@@ -83,19 +98,31 @@ export class DashboardComponent implements OnInit {
   }
 
   sortByField() {
-    console.log(this.sort)
-    const reqParams: ParamsForGetAllTasks = {
+    const sortedParams: ParamsForGetAllTasks = {
       filters: '',
       actualPage: this.actualPage,
       sort: this.sort.active,
       order: this.sortOrder
     }
     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    this.taskService.getAllTasks(reqParams).subscribe(
-      (sortedTasks) => {
-        this.dataSource.data = sortedTasks;
-      }
-    );
+    this.getTasks(sortedParams)
   }
 
+  onPageChange(newPage: number) {
+    const lastPageWithRecords = this.actualPage - 1
+    const pageChangeParams: ParamsForGetAllTasks = {
+      filters: '',
+      actualPage: newPage,
+      order: this.sortOrder,
+      sort: this.sort.active,
+      limit: this.pageSize
+    }
+
+    this.actualPage = newPage;
+    this.getTasks(pageChangeParams);
+    if (this.dataSource.data.length === 0) {
+      pageChangeParams.actualPage = lastPageWithRecords
+      this.getTasks(pageChangeParams);
+    }
+  }
 }

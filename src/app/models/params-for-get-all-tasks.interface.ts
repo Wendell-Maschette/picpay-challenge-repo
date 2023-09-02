@@ -1,6 +1,7 @@
 export interface ParamsForGetAllTasks {
     filters: any;
-    actualPage?: string | null;
+    actualPage?: number;
+    limit?: number;
     sort?: string;
     order?: string;
 }

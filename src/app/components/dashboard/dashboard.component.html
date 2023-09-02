@@ -13,35 +13,35 @@
   </mat-form-field>
 </div>
 
-<mat-table [dataSource]="dataSource" matSort matSortActive="name" matSortDirection="asc">
+<mat-table [dataSource]="dataSource" matSort matSortActive="name" >
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortByField()">
       <span>Usuário</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let item">{{ item.name }}</mat-cell>
   </ng-container>
-  
+
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortByField()">
       <span>Titulo</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let item">{{ item.title }}</mat-cell>
   </ng-container>
-  
+
   <ng-container matColumnDef="value">
     <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortByField()">
       <span>Valor</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let item">{{ item.value | currency:'BRL' }}</mat-cell>
   </ng-container>
-  
+
   <ng-container matColumnDef="date">
     <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortByField()">
       <span>Data</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let item">{{ item.date | date: 'dd/MM/yyyy' }}</mat-cell>
   </ng-container>
-  
+
   <ng-container matColumnDef="isPayed">
     <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortByField()">
       <span>Pago</span>
@@ -52,3 +52,14 @@
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
+
+<div class="pagination">
+  <button mat-button mat-raised-button type="submit" color="accent" (click)="onPageChange(actualPage - 1)"
+    [disabled]="actualPage === 1">
+    Anterior
+  </button>
+  <span>Página {{ actualPage }}</span>
+  <button mat-button mat-raised-button type="submit" color="accent" (click)="onPageChange(actualPage + 1)" [disabled]="(actualPage * pageSize) >= totalItems">
+    Próximo
+  </button>
+</div>
