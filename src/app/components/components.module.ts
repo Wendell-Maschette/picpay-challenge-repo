@@ -5,13 +5,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { ModalCreateTaskComponent } from './modal-create-task/modal-create-task.component';
+import { ModalInsertTaskComponent } from './modal-insert-task/modal-insert-task.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     DashboardComponent,
-    ModalCreateTaskComponent,
+    ModalInsertTaskComponent,
   ],
   imports: [
     CommonModule,

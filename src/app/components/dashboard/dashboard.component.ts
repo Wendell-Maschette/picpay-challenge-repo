@@ -2,13 +2,11 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Task } from 'src/app/models/task.interface';
 import { TaskService } from 'src/app/services/task.service';
-import { map } from 'rxjs';
 import { ParamsForGetAllTasks } from 'src/app/models/params-for-get-all-tasks.interface';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalCreateTaskComponent } from '../modal-create-task/modal-create-task.component';
+import { ModalInsertTaskComponent } from '../modal-insert-task/modal-insert-task.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +15,7 @@ import { ModalCreateTaskComponent } from '../modal-create-task/modal-create-task
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
   dataSource!: MatTableDataSource<Task>;
-  displayedColumns: string[] = ['name', 'title', 'value', 'date', 'isPayed'];
+  displayedColumns: string[] = ['name', 'title', 'value', 'date', 'isPayed', 'actions'];
   actualPage: number = 1;
   pageSize: number = 10;
   totalItems: number = 0;
@@ -57,7 +55,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.dataSource.data = tasksDataResponse;
       }
     );
-    
+
     this.taskService.getAllTasks({
       filters: '',
       order: ''
@@ -130,14 +128,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  openModal() {
-    const dialogRef = this.dialog.open(ModalCreateTaskComponent, {
-      width: '400px', // Defina o tamanho do modal conforme necessário
+  openModal(itemToEdit: Task | null = null) {
+    const dialogRef = this.dialog.open(ModalInsertTaskComponent, {
+      width: '400px', 
+      data: itemToEdit,
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      result ? window.location.reload() : 
       console.log(`O modal foi fechado e retornou: ${result}`);
     });
   }
-
 }

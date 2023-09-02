@@ -38,8 +38,8 @@ export class TaskService {
     return this.http.post<Task>(`${this.baseUrl}/tasks`, task);
   }
 
-  updateTask(task: Task): Observable<Task> {
-    return this.http.put<Task>(`${this.baseUrl}/tasks/${task.id}`, task);
+  updateTask(taskEdited: Task, id?: number): Observable<Task> {
+    return this.http.put<Task>(`${this.baseUrl}/tasks/${id}`, taskEdited);
   }
 
   deleteTask(taskId: number): Observable<void> {
