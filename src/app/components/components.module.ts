@@ -5,20 +5,18 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { NgxPaginationModule } from 'ngx-pagination';
-
-
+import { ModalCreateTaskComponent } from './modal-create-task/modal-create-task.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     DashboardComponent,
+    ModalCreateTaskComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    NgxPaginationModule
   ],
   providers: [
   ]

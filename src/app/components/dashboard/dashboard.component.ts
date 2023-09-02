@@ -7,6 +7,8 @@ import { Task } from 'src/app/models/task.interface';
 import { TaskService } from 'src/app/services/task.service';
 import { map } from 'rxjs';
 import { ParamsForGetAllTasks } from 'src/app/models/params-for-get-all-tasks.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalCreateTaskComponent } from '../modal-create-task/modal-create-task.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +31,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   constructor(
     private taskService: TaskService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public dialog: MatDialog
   ) {
     this.filterForm = this.fb.group({
       name: [''],
@@ -54,6 +57,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.dataSource.data = tasksDataResponse;
       }
     );
+    
     this.taskService.getAllTasks({
       filters: '',
       order: ''
@@ -125,4 +129,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.getTasks(pageChangeParams);
     }
   }
+
+  openModal() {
+    const dialogRef = this.dialog.open(ModalCreateTaskComponent, {
+      width: '400px', // Defina o tamanho do modal conforme necessário
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`O modal foi fechado e retornou: ${result}`);
+    });
+  }
+
 }

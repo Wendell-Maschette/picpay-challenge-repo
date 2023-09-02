@@ -1,0 +1,26 @@
+<div class="modal">
+    <div class="modal-content">
+        <h2>Adicionar Dados</h2>
+        <form [formGroup]="createTaskForm">
+            <mat-form-field>
+                <input matInput placeholder="Nome" formControlName="name">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Titulo" formControlName="title">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="valor" formControlName="value">
+            </mat-form-field>
+            <mat-checkbox formControlName="isPayed">Pago</mat-checkbox>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date" (click)="picker.open()" >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <div class="modal-actions">
+                <button mat-button (click)="saveData()">Salvar</button>
+                <button mat-button (click)="closeModal()">Fechar</button>
+            </div>
+        </form>
+    </div>
+</div>

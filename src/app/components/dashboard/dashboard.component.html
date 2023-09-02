@@ -12,8 +12,11 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 </div>
+<div>
+  <button mat-raised-button color="primary" (click)="openModal()">Add task</button>
+</div>
 
-<mat-table [dataSource]="dataSource" matSort matSortActive="name" >
+<mat-table [dataSource]="dataSource" matSort matSortActive="name">
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortByField()">
       <span>Usuário</span>
@@ -59,7 +62,8 @@
     Anterior
   </button>
   <span>Página {{ actualPage }}</span>
-  <button mat-button mat-raised-button type="submit" color="accent" (click)="onPageChange(actualPage + 1)" [disabled]="(actualPage * pageSize) >= totalItems">
+  <button mat-button mat-raised-button type="submit" color="accent" (click)="onPageChange(actualPage + 1)"
+    [disabled]="(actualPage * pageSize) >= totalItems">
     Próximo
   </button>
 </div>

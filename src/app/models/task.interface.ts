@@ -1,10 +1,9 @@
 export interface Task {
-    id: number;
+    id?: number;
     name: string;
-    username: string;
+    username?: string;
     title: string;
     value: number;
     date: string;
-    image: string;
     isPayed: boolean;
 }
