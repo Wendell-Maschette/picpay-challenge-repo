@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ModalInsertTaskComponent } from './modal-insert-task/modal-insert-task.component';
 import { ModalConfirmationDeleteComponent } from './modal-confirmation-delete/modal-confirmation-delete.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { ModalRegisterAccountComponent } from './modal-register-account/modal-register-account.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     DashboardComponent,
     ModalInsertTaskComponent,
     ModalConfirmationDeleteComponent,
+    ModalRegisterAccountComponent,
   ],
   imports: [
     CommonModule,

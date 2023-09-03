@@ -4,6 +4,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
 import { ErrorsStateMatcher } from '../../../Error-state-matcher';
 import { Router } from '@angular/router';
+import { Account } from 'src/app/models/account.interface';
+import { ModalRegisterAccountComponent } from '../modal-register-account/modal-register-account.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +17,8 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private _snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {}
   isSubmited: boolean = false;
   hide: boolean = true;
@@ -37,7 +41,7 @@ export class LoginComponent {
   }
   matcher = new ErrorsStateMatcher();
   onSubmit() {
-    const bodyLogin = {
+    const bodyLogin: Account = {
       email: this.email?.value,
       password: this.password?.value,
     };
@@ -45,7 +49,7 @@ export class LoginComponent {
       next: (data: boolean) => {
         if (data) {
           this.isLoginFailed = false;
-          this.router.navigate(['/dashboard']); // Use your route for protected page
+          this.router.navigate(['/dashboard']); 
         } else {
           this.isLoginFailed = true;
           this.errorMessage = 'Email ou senha incorretos';
@@ -56,6 +60,16 @@ export class LoginComponent {
         this.isLoginFailed = true;
         this._snackBar.open('Enter a valid informations !!!', '❌');
       },
+    });
+  }
+
+  openModal() {
+    const dialogRef = this.dialog.open(ModalRegisterAccountComponent, {
+      width: '400px', 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`O modal foi fechado e retornou: ${result}`);
     });
   }
 }
