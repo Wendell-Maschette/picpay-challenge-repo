@@ -4,9 +4,9 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { ModalInsertTaskComponent } from './modal-insert-task/modal-insert-task.component';
 import { ModalConfirmationDeleteComponent } from './modal-confirmation-delete/modal-confirmation-delete.component';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 @NgModule({
   declarations: [
@@ -19,6 +19,7 @@ import { ModalConfirmationDeleteComponent } from './modal-confirmation-delete/mo
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
+    CurrencyMaskModule
   ],
   providers: [
   ]

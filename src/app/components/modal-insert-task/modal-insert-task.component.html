@@ -9,7 +9,7 @@
                 <input matInput placeholder="Titulo" formControlName="title">
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="valor" formControlName="value">
+                <input currencyMask matInput placeholder="R$ 0,00" formControlName="value" [options]="{ prefix: 'R$ ', thousands: ',', decimal: '.' }">
             </mat-form-field>
             <mat-checkbox formControlName="isPayed">Pago</mat-checkbox>
             <mat-form-field>

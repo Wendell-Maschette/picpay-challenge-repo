@@ -11,27 +11,25 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class ModalInsertTaskComponent {
   createTaskForm: FormGroup;
-  isEditMode: boolean = false; // Variável para rastrear se está no modo de edição
+  isEditMode: boolean = false; 
 
   constructor(
     private dialogRef: MatDialogRef<ModalInsertTaskComponent>,
     private taskService: TaskService,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: Task // Recebe o item a ser editado como dado injetado
+    @Inject(MAT_DIALOG_DATA) public data: Task 
   ) {
     this.createTaskForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       username: ['', [Validators.minLength(3), Validators.maxLength(50)]],
-      title: ['', Validators.required],
+      title: ['', [Validators.required, Validators.minLength(3)]],
       date: ['', Validators.required],
-      value: [0.00, Validators.required],
+      value: ['', Validators.required],
       isPayed: [false],
     });
 
-    // Verifique se há dados passados para determinar se está no modo de edição
     if (data) {
       this.isEditMode = true;
-      // Preencha o formulário com os dados do item passado
       this.createTaskForm.patchValue(data);
     }
   }
