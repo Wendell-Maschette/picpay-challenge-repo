@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmedValidator } from 'src/app/helpers/util-functions';
 import { Account } from 'src/app/models/account.interface';
@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-modal-register-account',
   templateUrl: './modal-register-account.component.html',
-  styleUrls: ['./modal-register-account.component.css']
+  styleUrls: ['./modal-register-account.component.scss']
 })
 export class ModalRegisterAccountComponent {
   registerAccountForm: FormGroup;

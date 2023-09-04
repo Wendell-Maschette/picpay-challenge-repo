@@ -7,7 +7,7 @@ import { TaskService } from 'src/app/services/task.service';
 @Component({
   selector: 'app-modal-insert-task',
   templateUrl: './modal-insert-task.component.html',
-  styleUrls: ['./modal-insert-task.component.css']
+  styleUrls: ['./modal-insert-task.component.scss']
 })
 export class ModalInsertTaskComponent {
   createTaskForm: FormGroup;

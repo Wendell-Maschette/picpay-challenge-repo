@@ -5,7 +5,7 @@ import { TaskService } from 'src/app/services/task.service';
 @Component({
   selector: 'app-modal-confirmation-delete',
   templateUrl: './modal-confirmation-delete.component.html',
-  styleUrls: ['./modal-confirmation-delete.component.css']
+  styleUrls: ['./modal-confirmation-delete.component.scss']
 })
 export class ModalConfirmationDeleteComponent {
   constructor(

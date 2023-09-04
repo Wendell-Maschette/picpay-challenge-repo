@@ -1,33 +1,34 @@
 <div class="modal">
-    <div class="modal-content">
-        <h2>Cadastro de conta</h2>
-        <form [formGroup]="registerAccountForm">
-            <mat-form-field>
-                <input matInput placeholder="E-mail" formControlName="email">
-                <mat-icon matSuffix> email</mat-icon>
-                <mat-error *ngIf="email?.hasError('required')">Emails é obrigatório.</mat-error>
+    <div class="modal__content">
+        <h2 class="modal__title">Cadastro de Conta</h2>
+        <form [formGroup]="registerAccountForm" class="modal__form" role="form">
+            <mat-form-field class="modal__field" appearance="outline">
+                <mat-label for="email" class="modal__label">E-mail</mat-label>
+                <input matInput type="email" id="email" formControlName="email" class="modal__input" required aria-required="true" />
+                <mat-icon matSuffix class="modal__icon">email</mat-icon>
+                <mat-error *ngIf="email?.hasError('required')" class="modal__error">O e-mail é obrigatório.</mat-error>
             </mat-form-field>
-            <mat-form-field>
-                <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Senha"
-                    formControlName="password">
-                <mat-icon matSuffix (click)="togglePasswordVisibility()">
+            <mat-form-field class="modal__field" appearance="outline">
+                <mat-label for="password" class="modal__label">Senha</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" id="password" formControlName="password" class="modal__input" required aria-required="true" />
+                <mat-icon matSuffix (click)="togglePasswordVisibility()" class="modal__icon">
                     {{ hidePassword ? 'visibility_off' : 'visibility' }}
                 </mat-icon>
-                <mat-error *ngIf="password?.hasError('required')">Senha é obrigatória.</mat-error>
-                <mat-error *ngIf="password?.hasError('minlength')">Senha deve ter no mínimo 6 caracteres.</mat-error>
+                <mat-error *ngIf="password?.hasError('required')" class="modal__error">A senha é obrigatória.</mat-error>
+                <mat-error *ngIf="password?.hasError('minlength')" class="modal__error">A senha deve ter pelo menos 6 caracteres.</mat-error>
             </mat-form-field>
-            <mat-form-field>
-                <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Confirme sua senha"
-                    formControlName="confirmPassword">
-                <mat-icon matSuffix (click)="togglePasswordVisibility()">
+            <mat-form-field class="modal__field" appearance="outline">
+                <mat-label for="confirmPassword" class="modal__label">Confirme sua Senha</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" id="confirmPassword" formControlName="confirmPassword" class="modal__input" required aria-required="true" />
+                <mat-icon matSuffix (click)="togglePasswordVisibility()" class="modal__icon">
                     {{ hidePassword ? 'visibility_off' : 'visibility' }}
                 </mat-icon>
-                <mat-error *ngIf="confirmPassword?.hasError('required')">Confirme sua senha.</mat-error>
-                <mat-error *ngIf="confirmPassword?.hasError('confirmedValidator')">Senhas não coincidem.</mat-error>
+                <mat-error *ngIf="confirmPassword?.hasError('required')" class="modal__error">Confirme sua senha.</mat-error>
+                <mat-error *ngIf="confirmPassword?.hasError('confirmedValidator')" class="modal__error">As senhas não coincidem.</mat-error>
             </mat-form-field>
-            <div class="modal-actions">
-                <button mat-button (click)="registerAccount()">Criar conta</button>
-                <button mat-button (click)="closeModal()">Cancelar</button>
+            <div class="modal__actions">
+                <button mat-raised-button (click)="closeModal()" class="modal__button" color="warn">Cancelar</button>
+                <button mat-raised-button type="submit" (click)="registerAccount()" class="modal__button" color="accent">Criar Conta</button>
             </div>
         </form>
     </div>

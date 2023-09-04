@@ -1,0 +1,41 @@
+.login {
+    background-color: #FFFFFF;
+
+    &__container {
+        padding: 2rem;
+    }
+
+    &__form {
+        
+    }
+
+    &__title {}
+
+    &__field {
+        display: flex;
+    }
+
+    &__label {}
+
+    &__icon {}
+
+    &__button {
+    }
+
+    &__register-link {
+        color: #ffff;
+        padding-top: 1rem;
+
+        &-text {
+            color: #00796B;
+            text-decoration: underline;
+            cursor: pointer;
+            font-style: italic;
+
+        }
+
+        &-text:hover {
+            color: #69F0AE
+        }
+    }
+}
