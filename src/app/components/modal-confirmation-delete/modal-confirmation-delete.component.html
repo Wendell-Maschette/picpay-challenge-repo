@@ -1,9 +1,9 @@
-<div class="modal">
-    <div class="modal-content">
-        <h2>Tem certeza que deseja remover esse item?</h2>
-        <div class="modal-actions">
-            <button mat-button (click)="confirmAction()">Sim</button>
-            <button mat-button (click)="closeModal()">Não</button>
+<div class="modal" aria-modal="true" role="dialog">
+    <div class="modal__content">
+        <h2 class="modal__title">Tem certeza que deseja remover esse item?</h2>
+        <div class="modal__actions">
+            <button mat-raised-button (click)="closeModal()" class="modal__button modal__button--cancel" color="warn">Não</button>
+            <button mat-raised-button (click)="confirmAction()" class="modal__button modal__button--confirm" color="accent">Sim</button>
         </div>
     </div>
 </div>

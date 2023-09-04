@@ -27,7 +27,7 @@
                 <mat-error *ngIf="confirmPassword?.hasError('confirmedValidator')" class="modal__error">As senhas não coincidem.</mat-error>
             </mat-form-field>
             <div class="modal__actions">
-                <button mat-raised-button (click)="closeModal()" class="modal__button" color="warn">Cancelar</button>
+                <button mat-raised-button (click)="closeModal()" class="modal__button" color="primary">Já tenho conta</button>
                 <button mat-raised-button type="submit" (click)="registerAccount()" class="modal__button" color="accent">Criar Conta</button>
             </div>
         </form>
