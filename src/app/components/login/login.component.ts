@@ -65,6 +65,7 @@ export class LoginComponent {
 
   openModal() {
     const dialogRef = this.dialog.open(ModalRegisterAccountComponent, {
+      disableClose: true,
       width: '400px', 
     });
 

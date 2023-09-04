@@ -135,6 +135,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   openModal(itemToEdit: Task | null = null) {
     const dialogRef = this.dialog.open(ModalInsertTaskComponent, {
+      disableClose: true,
       width: '400px',
       data: itemToEdit,
     });
@@ -147,6 +148,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   openModalConfirmationDelete(taskId: number) {
     const dialogRef = this.dialog.open(ModalConfirmationDeleteComponent, {
+      disableClose: true,
       width: '400px',
       data: taskId,
     });
