@@ -19,7 +19,6 @@ export class ModalConfirmationDeleteComponent {
   confirmAction() {
     this.taskService.deleteTask(this.data).subscribe({
       next: (res) => {
-        console.log('Tarefa atualizada com sucesso');
         this.snackbarService.showSnackbar(MessageCode.TaskDeleteSuccess, 'success');
         this.dialogRef.close({ completed: true });
       },

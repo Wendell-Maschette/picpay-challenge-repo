@@ -49,7 +49,7 @@ export class ModalRegisterAccountComponent {
     const formData: Account = this.registerAccountForm.value;
 
     if (this.registerAccountForm.invalid) {
-      console.log('Erro no formulário');
+      this.snackbarService.showSnackbar(MessageCode.Error, 'error');
       return;
     }
 
@@ -60,7 +60,6 @@ export class ModalRegisterAccountComponent {
             this.dialogRef.close();
             this.snackbarService.showSnackbar(MessageCode.RegisterAccountSuccess, 'success');
           } else {
-            console.log("Conta já existe!");
             this.snackbarService.showSnackbar(MessageCode.RegisterAccountError, 'error');
           }
         }

@@ -57,7 +57,7 @@ export class ModalInsertTaskComponent {
 
   saveData() {
     if (this.createTaskForm.invalid) {
-      console.log('Erro no formulário');
+      this.snackbarService.showSnackbar(MessageCode.Error, 'error');
       return;
     }
   

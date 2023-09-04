@@ -87,21 +87,5 @@
 
     &__header-text {}
 
-    &__pagination {
-        margin-top: 1rem;
-
-        .mat-button-toggle-group {
-            border: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: start;
-
-            @include large-screen {
-                justify-content: end;
-                margin: 0 3rem;
-            }
-
-        }
-
-    }
+    &__pagination {}
 }

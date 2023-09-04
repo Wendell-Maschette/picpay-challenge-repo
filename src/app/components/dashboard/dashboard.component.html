@@ -96,14 +96,7 @@
       </ng-container>
     </mat-table>
   </mat-card>
-
   <div class="dashboard__pagination">
-    <mat-button-toggle-group name="pageToggle">
-      <ng-container *ngFor="let page of pageNumbers">
-        <mat-button-toggle [value]="page" (click)="onPageChange(page)">
-          {{ page }}
-        </mat-button-toggle>
-      </ng-container>
-    </mat-button-toggle-group>
+    <app-pagination [pageNumbers]="pageNumbers" (pageChange)="onPageChange($event)"></app-pagination>
   </div>
 </div>

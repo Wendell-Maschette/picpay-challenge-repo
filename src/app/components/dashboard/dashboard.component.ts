@@ -120,18 +120,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   onPageChange(newPage: number) {
-
-    const lastPageWithRecords = this.actualPage - 1
-    const pageChangeParams: ParamsForGetAllTasks = this.reqParams;
-    pageChangeParams.actualPage = newPage
-    pageChangeParams.limit = this.pageSize
-
     this.actualPage = newPage;
+
+    const pageChangeParams: ParamsForGetAllTasks = { ...this.reqParams };
+    pageChangeParams.actualPage = this.actualPage;
+    pageChangeParams.limit = this.pageSize;
+
     this.getTasks(pageChangeParams);
-    if (this.dataSource.data.length === 0) {
-      pageChangeParams.actualPage = lastPageWithRecords
-      this.getTasks(pageChangeParams);
-    }
   }
 
   openModal(itemToEdit: Task | null = null) {
@@ -142,8 +137,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      result ? window.location.reload() :
-        console.log(`O modal foi fechado e retornou: ${result}`);
+      result ? window.location.reload() : '';
     });
   }
 
@@ -155,8 +149,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      result ? window.location.reload() :
-        console.log(`O modal foi fechado e retornou: ${result}`);
+      result ? window.location.reload() : '';
     });
   }
 }

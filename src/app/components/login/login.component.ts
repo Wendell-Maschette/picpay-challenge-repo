@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
-import { ErrorsStateMatcher } from '../../../Error-state-matcher';
 import { Router } from '@angular/router';
 import { Account } from 'src/app/models/account.interface';
 import { ModalRegisterAccountComponent } from '../modal-register-account/modal-register-account.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
+import { ErrorsStateMatcher } from 'src/app/helpers/util-functions';
 
 @Component({
   selector: 'app-login',
@@ -66,8 +65,6 @@ export class LoginComponent {
       width: '400px', 
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`O modal foi fechado e retornou: ${result}`);
-    });
+    dialogRef.afterClosed().subscribe();
   }
 }
