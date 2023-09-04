@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-export enum ErrorCode {
+export enum MessageCode {
   Success = 'Operação realizada com sucesso!',
   Error = 'Ocorreu um erro inesperado. Tente novamente mais tarde.',
   LoginError = 'Email ou senha incorretos.',

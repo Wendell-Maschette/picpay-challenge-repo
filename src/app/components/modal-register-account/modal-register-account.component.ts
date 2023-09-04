@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ConfirmedValidator } from 'src/app/helpers/util-functions';
 import { Account } from 'src/app/models/account.interface';
 import { AuthService } from 'src/app/services/auth.service';
-import { ErrorCode, SnackbarService } from 'src/app/services/snackbar.service';
+import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-modal-register-account',
@@ -58,15 +58,15 @@ export class ModalRegisterAccountComponent {
         if (typeof res === 'boolean') {
           if (res) {
             this.dialogRef.close();
-            this.snackbarService.showSnackbar(ErrorCode.RegisterAccountSuccess, 'success');
+            this.snackbarService.showSnackbar(MessageCode.RegisterAccountSuccess, 'success');
           } else {
             console.log("Conta já existe!");
-            this.snackbarService.showSnackbar(ErrorCode.RegisterAccountError, 'error');
+            this.snackbarService.showSnackbar(MessageCode.RegisterAccountError, 'error');
           }
         }
       },
       error: (err: any) => {
-        this.snackbarService.showSnackbar(ErrorCode.Error, 'error');
+        this.snackbarService.showSnackbar(MessageCode.Error, 'error');
       },
     });
   }

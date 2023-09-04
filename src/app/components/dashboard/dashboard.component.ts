@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.dataSource = new MatTableDataSource();
     this.dataSource.sort = this.sort;
-    this.getTotalItemsDetails()
+    this.getTotalItemsDetails();
   }
 
   ngAfterViewInit(): void {
@@ -120,6 +120,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   onPageChange(newPage: number) {
+
     const lastPageWithRecords = this.actualPage - 1
     const pageChangeParams: ParamsForGetAllTasks = this.reqParams;
     pageChangeParams.actualPage = newPage

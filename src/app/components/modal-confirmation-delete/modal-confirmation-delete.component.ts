@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ErrorCode, SnackbarService } from 'src/app/services/snackbar.service';
+import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -20,11 +20,11 @@ export class ModalConfirmationDeleteComponent {
     this.taskService.deleteTask(this.data).subscribe({
       next: (res) => {
         console.log('Tarefa atualizada com sucesso');
-        this.snackbarService.showSnackbar(ErrorCode.TaskDeleteSuccess, 'success');
+        this.snackbarService.showSnackbar(MessageCode.TaskDeleteSuccess, 'success');
         this.dialogRef.close({ completed: true });
       },
       error: (err: any) => {
-        this.snackbarService.showSnackbar(ErrorCode.TaskDeleteError, 'error');
+        this.snackbarService.showSnackbar(MessageCode.TaskDeleteError, 'error');
         this.dialogRef.close({ completed: false });
       }
     });

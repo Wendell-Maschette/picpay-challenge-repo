@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Task } from 'src/app/models/task.interface';
-import { ErrorCode, SnackbarService } from 'src/app/services/snackbar.service';
+import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -69,16 +69,16 @@ export class ModalInsertTaskComponent {
     taskObservable.subscribe({
       next: (res: Task) => {
         const successMessage = this.isEditMode
-          ? ErrorCode.TaskUpdateSuccess
-          : ErrorCode.TaskCreateSuccess
+          ? MessageCode.TaskUpdateSuccess
+          : MessageCode.TaskCreateSuccess
   
         this.snackbarService.showSnackbar(successMessage, 'success');
         this.dialogRef.close({ completed: true });
       },
       error: (err: any) => {
         const errorMessage = this.isEditMode
-          ? ErrorCode.TaskUpdateError
-          : ErrorCode.TaskCreateError;
+          ? MessageCode.TaskUpdateError
+          : MessageCode.TaskCreateError;
   
         this.snackbarService.showSnackbar(errorMessage, 'error');
         this.dialogRef.close({ completed: false });
