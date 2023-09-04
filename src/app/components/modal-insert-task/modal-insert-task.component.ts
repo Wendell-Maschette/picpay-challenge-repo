@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Task } from 'src/app/models/task.interface';
+import { ErrorCode, SnackbarService } from 'src/app/services/snackbar.service';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class ModalInsertTaskComponent {
     private dialogRef: MatDialogRef<ModalInsertTaskComponent>,
     private taskService: TaskService,
     private fb: FormBuilder,
+    private snackbarService: SnackbarService,
     @Inject(MAT_DIALOG_DATA) public data: Task 
   ) {
     this.createTaskForm = this.fb.group({
@@ -54,27 +56,35 @@ export class ModalInsertTaskComponent {
   }
 
   saveData() {
-    let completed = false;
-    const formData: Task = this.createTaskForm.value;
-    if (!this.createTaskForm.invalid) {
-      if (this.isEditMode) {
-        this.taskService.updateTask(formData, this.data.id).subscribe(
-          (res) => {
-            console.log('Tarefa atualizada com sucesso');
-          }
-        );
-      } else {
-        this.taskService.createTask(formData).subscribe(
-          (res) => {
-            console.log('Tarefa criada com sucesso');
-          }
-        );
-      }
-      completed = true;
-      return this.dialogRef.close({completed});
+    if (this.createTaskForm.invalid) {
+      console.log('Erro no formulário');
+      return;
     }
-    console.log('Erro no formulário');
-  }
+  
+    const formData: Task = this.createTaskForm.value;
+    const taskObservable = this.isEditMode
+      ? this.taskService.updateTask(formData, this.data.id)
+      : this.taskService.createTask(formData);
+  
+    taskObservable.subscribe({
+      next: (res: Task) => {
+        const successMessage = this.isEditMode
+          ? ErrorCode.TaskUpdateSuccess
+          : ErrorCode.TaskCreateSuccess
+  
+        this.snackbarService.showSnackbar(successMessage, 'success');
+        this.dialogRef.close({ completed: true });
+      },
+      error: (err: any) => {
+        const errorMessage = this.isEditMode
+          ? ErrorCode.TaskUpdateError
+          : ErrorCode.TaskCreateError;
+  
+        this.snackbarService.showSnackbar(errorMessage, 'error');
+        this.dialogRef.close({ completed: false });
+      },
+    });
+  }  
 
   closeModal() {
     this.dialogRef.close();

@@ -1,9 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { ConfirmedValidator } from 'src/app/helpers/util-functions';
 import { Account } from 'src/app/models/account.interface';
 import { AuthService } from 'src/app/services/auth.service';
+import { ErrorCode, SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-modal-register-account',
@@ -19,6 +21,7 @@ export class ModalRegisterAccountComponent {
     private dialogRef: MatDialogRef<ModalRegisterAccountComponent>,
     private authService: AuthService,
     private fb: FormBuilder,
+    private snackbarService: SnackbarService,
     @Inject(MAT_DIALOG_DATA) public data: Account
   ) {
     this.registerAccountForm = this.fb.group({
@@ -44,15 +47,28 @@ export class ModalRegisterAccountComponent {
 
   registerAccount() {
     const formData: Account = this.registerAccountForm.value;
-    if (!this.registerAccountForm.invalid) {
-      this.authService.registerAccount(formData).subscribe(
-        (res) => {
-          res ? this.dialogRef.close() :
-            console.log("Conta ja existe!");
-        }
-      );
+
+    if (this.registerAccountForm.invalid) {
+      console.log('Erro no formulário');
+      return;
     }
-    console.log('Erro no formulário');
+
+    this.authService.registerAccount(formData).subscribe({
+      next: (res: boolean | Observable<Account>) => {
+        if (typeof res === 'boolean') {
+          if (res) {
+            this.dialogRef.close();
+            this.snackbarService.showSnackbar(ErrorCode.RegisterAccountSuccess, 'success');
+          } else {
+            console.log("Conta já existe!");
+            this.snackbarService.showSnackbar(ErrorCode.RegisterAccountError, 'error');
+          }
+        }
+      },
+      error: (err: any) => {
+        this.snackbarService.showSnackbar(ErrorCode.Error, 'error');
+      },
+    });
   }
 
   closeModal() {

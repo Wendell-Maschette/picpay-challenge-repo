@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Account } from 'src/app/models/account.interface';
 import { ModalRegisterAccountComponent } from '../modal-register-account/modal-register-account.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ErrorCode, SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -16,14 +17,12 @@ import { MatDialog } from '@angular/material/dialog';
 export class LoginComponent {
   constructor(
     private authService: AuthService,
-    private _snackBar: MatSnackBar,
+    private snackbarService: SnackbarService,
     private router: Router,
     public dialog: MatDialog
   ) {}
   isSubmited: boolean = false;
   hide: boolean = true;
-  isLoginFailed = false;
-  errorMessage = '';
 
   form: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -39,7 +38,9 @@ export class LoginComponent {
   get password() {
     return this.form.get('password');
   }
+  
   matcher = new ErrorsStateMatcher();
+  
   onSubmit() {
     const bodyLogin: Account = {
       email: this.email?.value,
@@ -48,17 +49,13 @@ export class LoginComponent {
     this.authService.login(bodyLogin).subscribe({
       next: (data: boolean) => {
         if (data) {
-          this.isLoginFailed = false;
           this.router.navigate(['/dashboard']); 
         } else {
-          this.isLoginFailed = true;
-          this.errorMessage = 'Email ou senha incorretos';
-          this._snackBar.open(this.errorMessage, '❌');
+        this.snackbarService.showSnackbar(ErrorCode.LoginError, 'error');
         }
       },
       error: (err: any) => {
-        this.isLoginFailed = true;
-        this._snackBar.open('Enter a valid informations !!!', '❌');
+        this.snackbarService.showSnackbar(ErrorCode.Error, 'error');
       },
     });
   }

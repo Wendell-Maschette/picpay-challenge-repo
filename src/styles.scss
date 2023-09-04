@@ -10,6 +10,20 @@ h2 {
   font-size: 1.5rem !important;
 }
 
+.mdc-snackbar__surface{
+  background-color: transparent !important;
+}
+.error-snackbar {
+  background-color: red;
+  color: black;
+  /* Outras propriedades de estilo personalizadas, se necessário */
+}
+
+.success-snackbar {
+  background-color: green;
+  color: white;
+  /* Outras propriedades de estilo personalizadas, se necessário */
+}
 
 // Defina sua paleta de cores personalizada
 $custom-primary: mat-palette($mat-teal, 700, 300, 900); // Cor primária com tons

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Account } from '../models/account.interface';
 
@@ -42,17 +42,22 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
-  registerAccount(newAccount: Account) {
-    return this.http.get<any[]>(`${this.dbUrl}/account`).pipe(
-      map(accounts => {
-        const hasAccount = accounts.find(acc => acc.email === newAccount.email);
+  registerAccount(newAccount: Account): Observable<boolean> {
+    return this.http.get<Account[]>(`${this.dbUrl}/account`).pipe(
+      switchMap((accounts:any) => {
+        const hasAccount = accounts.find((acc: any) => acc.email === newAccount.email);
         if (hasAccount) {
-          return false;
+          return of(false); // Conta já existe
         } else {
-          return this.http.post<Account>(`${this.dbUrl}/account`, newAccount);
+          // Se a conta não existe, cria a nova conta
+          return this.http.post<Account>(`${this.dbUrl}/account`, newAccount).pipe(
+            map(() => true), // Sucesso na criação da conta
+            catchError(() => of(false)) // Erro na criação da conta
+          );
         }
       }),
       catchError(() => of(false))
     );
   }
+  
 }
