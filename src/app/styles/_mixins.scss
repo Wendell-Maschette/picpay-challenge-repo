@@ -1,0 +1,21 @@
+
+// Mixin para telas pequenas (celulares)
+@mixin small-screen {
+    @media (min-width: 0px) {
+      @content;
+    }
+  }
+  
+  // Mixin para telas médias (tablets)
+  @mixin medium-screen {
+    @media (min-width: 577px) {
+      @content;
+    }
+  }
+  
+  // Mixin para telas grandes (desktops)
+  @mixin large-screen {
+    @media (min-width: 993px) {
+      @content;
+    }
+  }

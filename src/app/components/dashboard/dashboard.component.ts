@@ -16,7 +16,7 @@ import { ModalConfirmationDeleteComponent } from '../modal-confirmation-delete/m
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
   dataSource!: MatTableDataSource<Task>;
-  displayedColumns: string[] = ['name', 'title', 'value', 'date', 'isPayed', 'actions'];
+  displayedColumns: string[] = ['name', 'title', 'value', 'date', 'isPayed', 'actions', 'actions-mobile'];
   actualPage: number = 1;
   pageSize: number = 10;
   totalItems: number = 0;

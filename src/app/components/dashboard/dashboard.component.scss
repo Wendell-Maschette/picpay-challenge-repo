@@ -1,0 +1,107 @@
+@import '../../styles/mixins';
+
+.dashboard {
+
+    &__filters {
+        padding: 2rem;
+    }
+
+    &__filter {
+        width: 100%;
+
+        @include large-screen {
+            margin: 0 1rem;
+            width: 20%;
+        }
+    }
+
+    &__add-button {
+        padding: 1rem 3rem;
+    }
+
+    &__table-container {
+        overflow-x: auto;
+
+        @include large-screen {
+            overflow-x: hidden;
+            margin: 0 3rem;
+        }
+
+        .mat-column-name {
+            @include small-screen {
+                min-width: 6rem;
+            }
+
+        }
+
+        .mat-column-title {
+            @include small-screen {
+                min-width: 6rem;
+            }
+
+        }
+
+        .mat-column-value {
+            @include small-screen {
+                min-width: 5rem;
+            }
+        }
+
+        .mat-column-date {
+            @include small-screen {
+                min-width: 6.2rem;
+            }
+        }
+
+        .mat-column-isPayed {
+            @include small-screen {
+                min-width: 4rem;
+            }
+        }
+
+        .mat-column-actions {
+            display: none;
+
+            @include large-screen {
+                display: inline;
+                width: 10px;
+            }
+
+            &__edit {}
+
+            &__delete {}
+        }
+
+        .mat-column-actions-mobile {
+            min-width: 4.2rem;
+
+            @include large-screen {
+                display: none;
+            }
+
+            &__edit {}
+
+            &__delete {}
+        }
+    }
+
+    &__header-text {}
+
+    &__pagination {
+        margin-top: 1rem;
+
+        .mat-button-toggle-group {
+            border: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: start;
+
+            @include large-screen {
+                justify-content: end;
+                margin: 0 3rem;
+            }
+
+        }
+
+    }
+}
