@@ -25,12 +25,12 @@ export class TaskService {
       const activeFilterKey = Object.keys(reqParams.filters).find(key => reqParams.filters[key] === activeFilter);
       activeFilterKey ? queryParams = queryParams.set(activeFilterKey, activeFilter.trim()) : ''
     }
-
+    
     reqParams.sort ? queryParams = queryParams.set('_sort', reqParams.sort) : undefined;
     reqParams.order ? queryParams = queryParams.set('_order', reqParams.order) : undefined;
 
     let url = `${this.baseUrl}/tasks`;
-
+    
     return this.http.get<Task[]>(url, { params: queryParams });
   }
 

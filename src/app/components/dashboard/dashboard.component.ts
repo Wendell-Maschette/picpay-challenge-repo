@@ -20,8 +20,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   actualPage: number = 1;
   pageSize: number = 10;
   totalItems: number = 0;
+  totalPages: number = 0;
+
+  pageNumbers: number[] = [];
   sortField?: 'name' | 'title' | 'value' | 'date' | 'isPayed';
   sortOrder?: 'asc' | 'desc';
+
+  private reqParams: ParamsForGetAllTasks = {
+    filters: '',
+    actualPage: this.actualPage
+  }
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('dateInput') dateInput!: ElementRef<HTMLInputElement>;
@@ -43,6 +51,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.dataSource = new MatTableDataSource();
     this.dataSource.sort = this.sort;
+    this.getTotalItemsDetails()
   }
 
   ngAfterViewInit(): void {
@@ -50,19 +59,22 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   getTasks(reqParams: ParamsForGetAllTasks) {
-
     this.taskService.getAllTasks(reqParams).subscribe(
       (tasksDataResponse) => {
         this.dataSource.data = tasksDataResponse;
       }
     );
+  }
 
+  getTotalItemsDetails() {
     this.taskService.getAllTasks({
       filters: '',
       order: ''
     }).subscribe(
       (totalItemsResponse) => {
         this.totalItems = totalItemsResponse.length
+        this.totalPages = Math.ceil(this.totalItems / 10);
+        this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
       }
     )
   }
@@ -76,11 +88,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   filterTasks() {
-    const filterParams: ParamsForGetAllTasks = {
-      filters: this.filterForm.value,
-      actualPage: this.actualPage
-    }
-
+    const filterParams = this.reqParams;
+    filterParams.filters = this.filterForm.value
     this.getTasks(filterParams)
   }
 
@@ -100,26 +109,21 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.filterTasks();
   }
 
-  sortByField() {
-    const sortedParams: ParamsForGetAllTasks = {
-      filters: '',
-      actualPage: this.actualPage,
-      sort: this.sort.active,
-      order: this.sortOrder
-    }
+  sortBy() {
+    const sortedParams: ParamsForGetAllTasks = this.reqParams;
+    sortedParams.sort = this.sort.active;
+    sortedParams.order = this.sortOrder;
+    this.actualPage = 1
+    sortedParams.actualPage = this.actualPage;
     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     this.getTasks(sortedParams)
   }
 
   onPageChange(newPage: number) {
     const lastPageWithRecords = this.actualPage - 1
-    const pageChangeParams: ParamsForGetAllTasks = {
-      filters: '',
-      actualPage: newPage,
-      order: this.sortOrder,
-      sort: this.sort.active,
-      limit: this.pageSize
-    }
+    const pageChangeParams: ParamsForGetAllTasks = this.reqParams;
+    pageChangeParams.actualPage = newPage
+    pageChangeParams.limit = this.pageSize
 
     this.actualPage = newPage;
     this.getTasks(pageChangeParams);
@@ -131,25 +135,25 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   openModal(itemToEdit: Task | null = null) {
     const dialogRef = this.dialog.open(ModalInsertTaskComponent, {
-      width: '400px', 
+      width: '400px',
       data: itemToEdit,
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      result ? window.location.reload() : 
-      console.log(`O modal foi fechado e retornou: ${result}`);
+      result ? window.location.reload() :
+        console.log(`O modal foi fechado e retornou: ${result}`);
     });
   }
 
   openModalConfirmationDelete(taskId: number) {
     const dialogRef = this.dialog.open(ModalConfirmationDeleteComponent, {
-      width: '400px', 
+      width: '400px',
       data: taskId,
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      result ? window.location.reload() : 
-      console.log(`O modal foi fechado e retornou: ${result}`);
+      result ? window.location.reload() :
+        console.log(`O modal foi fechado e retornou: ${result}`);
     });
   }
 }

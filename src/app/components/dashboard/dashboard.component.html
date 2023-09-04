@@ -16,37 +16,37 @@
   <button mat-raised-button color="primary" (click)="openModal()">Add task</button>
 </div>
 
-<mat-table [dataSource]="dataSource" matSort matSortActive="name">
+<mat-table [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortByField()">
+    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortBy()">
       <span>Usuário</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let item">{{ item.name }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortByField()">
+    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortBy()">
       <span>Titulo</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let item">{{ item.title }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="value">
-    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortByField()">
+    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortBy()">
       <span>Valor</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let item">{{ item.value | currency:'BRL' }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="date">
-    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortByField()">
+    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortBy()">
       <span>Data</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let item">{{ item.date | date: 'dd/MM/yyyy' }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="isPayed">
-    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortByField()">
+    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortBy()">
       <span>Pago</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let item">{{ item.isPayed ? 'Sim' : 'Não' }}</mat-cell>
@@ -74,7 +74,13 @@
     [disabled]="actualPage === 1">
     Anterior
   </button>
-  <span>Página {{ actualPage }}</span>
+
+  <ng-container *ngFor="let page of pageNumbers">
+    <button mat-button mat-raised-button type="submit" color="accent" (click)="onPageChange(page)">
+      {{ page }}
+    </button>
+  </ng-container>
+
   <button mat-button mat-raised-button type="submit" color="accent" (click)="onPageChange(actualPage + 1)"
     [disabled]="(actualPage * pageSize) >= totalItems">
     Próximo

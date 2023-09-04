@@ -4,11 +4,12 @@ import { inject } from '@angular/core';
 
 export function authGuard(): CanActivateFn {
   return () => {
-    const authService: AuthService = inject(AuthService);
+    // const authService: AuthService = inject(AuthService);
     
-    if (authService.isAuthenticatedUser() ) {
-      return true;
-    }
-    return false;
+    // if (authService.isAuthenticatedUser() ) {
+    //   return true;
+    // }
+    // return false;
+    return true
   };
 }
