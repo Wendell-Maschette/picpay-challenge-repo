@@ -22,9 +22,9 @@ export class ModalInsertTaskComponent {
     this.createTaskForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       username: ['', [Validators.minLength(3), Validators.maxLength(50)]],
-      title: ['', [Validators.required, Validators.minLength(3)]],
+      title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       date: ['', Validators.required],
-      value: ['', Validators.required],
+      value: ['', [Validators.required, Validators.min(0.01)]],
       isPayed: [false],
     });
 
@@ -32,6 +32,25 @@ export class ModalInsertTaskComponent {
       this.isEditMode = true;
       this.createTaskForm.patchValue(data);
     }
+  }
+  get name() {
+    return this.createTaskForm.get('name');
+  }
+
+  get title() {
+    return this.createTaskForm.get('title');
+  }
+
+  get date() {
+    return this.createTaskForm.get('date');
+  }
+
+  get value() {
+    return this.createTaskForm.get('value');
+  }
+
+  get isPayed() {
+    return this.createTaskForm.get('isPayed');
   }
 
   saveData() {

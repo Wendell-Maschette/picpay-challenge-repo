@@ -1,26 +1,42 @@
-<div class="modal">
-    <div class="modal-content">
-        <h2>Adicionar Dados</h2>
-        <form [formGroup]="createTaskForm">
-            <mat-form-field>
-                <input matInput placeholder="Nome" formControlName="name">
+<mat-card class="modal">
+    <div class="modal__content">
+        <h2 class="modal__title">Adicionar Dados</h2>
+        <form [formGroup]="createTaskForm" role="form" aria-labelledby="modalTitle">
+            <mat-form-field class="modal__field" appearance="outline">
+                <mat-label for="name">Nome</mat-label>
+                <input matInput type="text" id="name" formControlName="name" minlength="3">
+                <mat-error *ngIf="name?.hasError('required')" class="modal__error">O campo nome é obrigatório.</mat-error>
+                <mat-error *ngIf="name?.hasError('maxlength')" class="modal__error">O campo nome não pode ter mais que 50 caracteres.</mat-error>
+                <mat-error *ngIf="name?.hasError('minlength')" class="modal__error">O campo nome deve ter pelo menos 3 caracteres.</mat-error>
             </mat-form-field>
-            <mat-form-field>
-                <input matInput placeholder="Titulo" formControlName="title">
+            <mat-form-field class="modal__field" appearance="outline">
+                <mat-label for="title">Título</mat-label>
+                <input matInput type="text" id="title" formControlName="title">
+                <mat-error *ngIf="title?.hasError('required')" class="modal__error">O campo titulo é obrigatório.</mat-error>
+                <mat-error *ngIf="title?.hasError('maxlength')" class="modal__error">O campo titulo não pode ter mais que 50 caracteres.</mat-error>
+                <mat-error *ngIf="title?.hasError('minlength')" class="modal__error">O campo titulo deve ter pelo menos 3 caracteres.</mat-error>
             </mat-form-field>
-            <mat-form-field>
-                <input currencyMask matInput placeholder="R$ 0,00" formControlName="value" [options]="{ prefix: 'R$ ', thousands: ',', decimal: '.' }">
+            <mat-form-field class="modal__field"  appearance="outline">
+                <mat-label for="value">Valor</mat-label>
+                <input currencyMask matInput type="text" id="value" formControlName="value" [options]="{ prefix: 'R$ ', thousands: ',', decimal: '.' }">
+                <mat-error *ngIf="value?.hasError('required')" class="modal__error">O campo valor é obrigatório.</mat-error>
+                <mat-error *ngIf="value?.hasError('min')" class="modal__error">O campo valor não pode ser R$0.00.</mat-error>
             </mat-form-field>
-            <mat-checkbox formControlName="isPayed">Pago</mat-checkbox>
-            <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date" (click)="picker.open()" >
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-form-field class="modal__field"  appearance="outline">
+                <mat-label for="date">Data</mat-label>
+                <input matInput type="text" id="date" [matDatepicker]="picker" formControlName="date" (click)="picker.open()" aria-haspopup="dialog" aria-owns="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker" aria-label="Toggle Datepicker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="date?.hasError('required')" class="modal__error">O campo data é obrigatório.</mat-error>
             </mat-form-field>
-            <div class="modal-actions">
-                <button mat-button (click)="saveData()">Salvar</button>
-                <button mat-button (click)="closeModal()">Fechar</button>
+            <div class="modal__checkbox"  appearance="outline">
+                <mat-checkbox class="modal__checkbox-input" formControlName="isPayed"></mat-checkbox>
+                <mat-label class="modal__checkbox-label">Pago</mat-label>
+            </div>
+            <div class="modal__actions">
+                <button mat-raised-button type="button" (click)="closeModal()" class="modal__button" color="warn">Fechar</button>
+                <button mat-raised-button type="button" (click)="saveData()" class="modal__button" color="accent">Salvar</button>
             </div>
         </form>
     </div>
-</div>
+</mat-card>
