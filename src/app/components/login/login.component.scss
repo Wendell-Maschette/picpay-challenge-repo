@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 .login {
     background-color: #FFFFFF;
 
@@ -27,7 +29,7 @@
         padding-top: 1rem;
 
         &-text {
-            color: #00796B;
+            color: $primary-color;
             text-decoration: underline;
             cursor: pointer;
             font-style: italic;
@@ -35,7 +37,7 @@
         }
 
         &-text:hover {
-            color: #69F0AE
+            color: $secondary-color
         }
     }
 }
