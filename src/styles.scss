@@ -2,13 +2,11 @@
 @import 'app/styles/mixins';
 @import 'app/styles/variables';
 
-/* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; background-color: #2c2c2c; }
+html, body { height: 100%; background-color: $background-color; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-p { color: #2c2c2c;}
+p { color: $font-color;}
 h2 {
-  color: #00796B;
+  color: $primary-color;
   font-weight: 500;
   font-size: 1.5rem !important;
 }
@@ -18,31 +16,28 @@ h2 {
 }
 
 .mat-button-toggle-label-content{
-  color: #00796B;
+  color: $primary-color;
 }
 
 .mat-button-toggle-label-content:active{
-  background-color: #00796B;
+  background-color: $primary-color;
 
 }
 .error-snackbar {
-  background-color: red;
+  background-color: $error-color;
   color: black;
-  /* Outras propriedades de estilo personalizadas, se necessário */
 }
 
 .success-snackbar {
-  background-color: green;
+  background-color: $success-color;
   color: white;
-  /* Outras propriedades de estilo personalizadas, se necessário */
 }
 
-// Defina sua paleta de cores personalizada
-$custom-primary: mat-palette($mat-teal, 700, 300, 900); // Cor primária com tons
-$custom-accent: mat-palette($mat-green, A200, A100, A400); // Cor de destaque com tons
-$custom-warn: mat-palette($mat-red); // Cor de erro
+$custom-primary: mat-palette($mat-teal, 700, 300, 900); 
+$custom-accent: mat-palette($mat-green, A200, A100, A400); 
+$custom-warn: mat-palette($mat-red); 
 
-// Crie um tema personalizado usando sua paleta de cores
+
 $custom-theme: mat-light-theme(
   (
     color: (
@@ -53,5 +48,5 @@ $custom-theme: mat-light-theme(
   )
 );
 
-// Aplique seu tema personalizado
+
 @include angular-material-theme($custom-theme);

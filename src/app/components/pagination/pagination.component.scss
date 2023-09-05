@@ -8,10 +8,10 @@
         border-radius: 0;
         display: flex;
         flex-wrap: wrap;
-        justify-content: start;
+        justify-content: flex-start;
 
         @include large-screen {
-            justify-content: end;
+            justify-content: flex-start;
             margin: 0 3rem;
         }
 

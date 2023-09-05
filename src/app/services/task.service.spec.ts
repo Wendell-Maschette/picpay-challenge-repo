@@ -163,11 +163,11 @@ describe('TaskService', () => {
   it('should retrieve tasks sorted by name in ascending order', () => {
     const reqParams: ParamsForGetAllTasks = {
       filters: '',
-      sort: 'name', // Ordenar por nome
-      order: 'asc', // Ordem ascendente
+      sort: 'name', 
+      order: 'asc', 
     };
 
-    const expectedTasks: Task[] = [mockedTasks[0], mockedTasks[1], mockedTasks[2]]; // Tarefas ordenadas por nome ascendente
+    const expectedTasks: Task[] = [mockedTasks[0], mockedTasks[1], mockedTasks[2]]; 
 
     taskService.getAllTasks(reqParams).subscribe((tasks) => {
       expect(tasks).toEqual(expectedTasks);
@@ -182,11 +182,11 @@ describe('TaskService', () => {
   it('should retrieve tasks sorted by value in descending order', () => {
     const reqParams: ParamsForGetAllTasks = {
       filters: '',
-      sort: 'value', // Ordenar por valor
-      order: 'desc', // Ordem descendente
+      sort: 'value', 
+      order: 'desc', 
     };
 
-    const expectedTasks: Task[] = [mockedTasks[1], mockedTasks[2], mockedTasks[0]]; // Tarefas ordenadas por valor descendente
+    const expectedTasks: Task[] = [mockedTasks[1], mockedTasks[2], mockedTasks[0]]; 
 
     taskService.getAllTasks(reqParams).subscribe((tasks) => {
       expect(tasks).toEqual(expectedTasks);
@@ -207,7 +207,7 @@ describe('TaskService', () => {
       isPayed: false,
     };
 
-    const expectedResponse = { ...newTask, id: 4 }; // A resposta esperada inclui o ID gerado pelo servidor
+    const expectedResponse = { ...newTask, id: 4 }; 
 
     taskService.createTask(newTask).subscribe((response) => {
       expect(response).toEqual(expectedResponse);
@@ -229,7 +229,7 @@ describe('TaskService', () => {
       isPayed: false,
     };
 
-    const expectedResponse = { ...newTask, id: 4 }; // A resposta esperada inclui o ID gerado pelo servidor
+    const expectedResponse = { ...newTask, id: 4 };
 
     taskService.createTask(newTask).subscribe((response) => {
       expect(response).toEqual(expectedResponse);

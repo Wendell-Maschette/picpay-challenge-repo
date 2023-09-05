@@ -1,28 +1,22 @@
 .modal {
     &__content {
-        /* Estilos para o conteúdo do modal */
         padding: 2rem;
     }
 
     &__title {
-        /* Estilos para o título do modal */
         width: 100%;
     }
 
     &__actions {
        margin-top: 1rem;
-        /* Estilos para as ações do modal */
     }
 
     &__button {
-        /* Estilos padrão para os botões */
         margin-right: 1rem;
         &--confirm {
-            /* Estilos específicos para o botão "Sim" */
         }
 
         &--cancel {
-            /* Estilos específicos para o botão "Não" */
         }
     }
 }
