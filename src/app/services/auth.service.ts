@@ -47,12 +47,11 @@ export class AuthService {
       switchMap((accounts:any) => {
         const hasAccount = accounts.find((acc: any) => acc.email === newAccount.email);
         if (hasAccount) {
-          return of(false); // Conta já existe
+          return of(false); 
         } else {
-          // Se a conta não existe, cria a nova conta
           return this.http.post<Account>(`${this.dbUrl}/account`, newAccount).pipe(
-            map(() => true), // Sucesso na criação da conta
-            catchError(() => of(false)) // Erro na criação da conta
+            map(() => true), 
+            catchError(() => of(false)) 
           );
         }
       }),

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaginationComponent } from './pagination.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ComponentsModule } from '../components.module';
 
 describe('PaginationComponent', () => {
   let component: PaginationComponent;
@@ -8,7 +10,8 @@ describe('PaginationComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PaginationComponent]
+      declarations: [PaginationComponent],
+      imports: [ComponentsModule] 
     });
     fixture = TestBed.createComponent(PaginationComponent);
     component = fixture.componentInstance;
