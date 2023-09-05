@@ -39,8 +39,4 @@ describe('ModalRegisterAccountComponent', () => {
     expect(component).toBeTruthy();
   });
 
- 
-
-  // Add more test cases as needed
-
 });

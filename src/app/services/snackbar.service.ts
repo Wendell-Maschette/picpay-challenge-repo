@@ -12,7 +12,9 @@ export enum MessageCode {
   TaskCreateSuccess = "Tarefa criada com successo!",
   TaskCreateError = "Ocorreu um erro ao criar tarefa.",
   TaskDeleteError = "Ocorreu um erro ao deletar tarefa.",
-  TaskDeleteSuccess = "Tarefa deletada com successo!"
+  TaskDeleteSuccess = "Tarefa deletada com successo!",
+  TaskGetError = "Ocorreu um erro ao buscar tarefas.",
+
 }
 
 @Injectable({

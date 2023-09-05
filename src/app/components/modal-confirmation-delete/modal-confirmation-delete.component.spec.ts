@@ -12,8 +12,6 @@ describe('ModalConfirmationDeleteComponent', () => {
   let component: ModalConfirmationDeleteComponent;
   let fixture: ComponentFixture<ModalConfirmationDeleteComponent>;
   let dialogRefMock: jasmine.SpyObj<MatDialogRef<ModalConfirmationDeleteComponent>>;
-  let snackbarServiceMock: jasmine.SpyObj<SnackbarService>;
-  let taskServiceMock: jasmine.SpyObj<TaskService>;
 
   beforeEach(() => {
     dialogRefMock = jasmine.createSpyObj('MatDialogRef', ['close']);

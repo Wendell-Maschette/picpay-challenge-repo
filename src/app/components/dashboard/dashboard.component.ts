@@ -8,6 +8,7 @@ import { ParamsForGetAllTasks } from 'src/app/models/params-for-get-all-tasks.in
 import { MatDialog } from '@angular/material/dialog';
 import { ModalInsertTaskComponent } from '../modal-insert-task/modal-insert-task.component';
 import { ModalConfirmationDeleteComponent } from '../modal-confirmation-delete/modal-confirmation-delete.component';
+import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -39,7 +40,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   constructor(
     private taskService: TaskService,
     private fb: FormBuilder,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public snackbarService: SnackbarService
   ) {
     this.filterForm = this.fb.group({
       name: [''],
@@ -59,11 +61,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   getTasks(reqParams: ParamsForGetAllTasks) {
-    this.taskService.getAllTasks(reqParams).subscribe(
-      (tasksDataResponse) => {
+    this.taskService.getAllTasks(reqParams).subscribe({
+      next: (tasksDataResponse: Task[]) => {
         this.dataSource.data = tasksDataResponse;
+      },
+      error: (err: any) => {
+        this.snackbarService.showSnackbar(MessageCode.TaskGetError, 'error');
       }
-    );
+    });
   }
 
   getTotalItemsDetails() {
