@@ -8,12 +8,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TaskService } from 'src/app/services/task.service';
 import { of, throwError } from 'rxjs';
 import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
   let taskService: TaskService;
   let snackbarService: SnackbarService;
+  let authService: AuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -24,6 +26,7 @@ describe('DashboardComponent', () => {
     fixture = TestBed.createComponent(DashboardComponent);
     taskService = TestBed.inject(TaskService);
     snackbarService = TestBed.inject(SnackbarService);
+    authService = TestBed.inject(AuthService);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -76,6 +79,14 @@ describe('DashboardComponent', () => {
     component.filterTasks();
 
     expect(component.filterForm.controls['date'].hasError('matDatepickerParse')).toBe(true);
+  });
+
+  it('should log out and navigate to home page', () => {
+    spyOn(authService, 'logout');
+
+    component.logout();
+
+    expect(authService.logout).toHaveBeenCalled();
   });
 
 });

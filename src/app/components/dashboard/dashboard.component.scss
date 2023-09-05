@@ -1,6 +1,10 @@
 @import '../../styles/mixins';
 
 .dashboard {
+    &__logout {
+        display: flex;
+        justify-content: end;
+    }
 
     &__filters {
         padding: 2rem;

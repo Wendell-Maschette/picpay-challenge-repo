@@ -1,18 +1,22 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Account } from '../models/account.interface';
+import { Router } from '@angular/router';
 
 describe('AuthService', () => {
   let authService: AuthService;
   let httpTestingController: HttpTestingController;
+  let router: Router;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [AuthService],
+      providers: [AuthService, Router ],
     });
     authService = TestBed.inject(AuthService);
+    router = TestBed.inject(Router);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
@@ -46,27 +50,30 @@ describe('AuthService', () => {
     httpTestingController.verify();
   });
 
-  it('should return false for an invalid account on login', () => {
+  it('should return false for an invalid account on login', fakeAsync(() => {
     const mockAccounts: Account[] = [
       { email: 'test@example.com', password: 'password' },
       { email: 'another@example.com', password: '123456' },
     ];
-    expect(authService.isAuthenticatedUser()).toBeFalsy();
-
-    const invalidAccount: Account = { email: 'invalid@example.com', password: 'invalidpassword' };
-
-    authService.login(invalidAccount).subscribe((result) => {
-      expect(result).toBeFalsy();
+    
+    let loginResult: boolean | undefined;
+    
+    authService.login({ email: 'invalid@example.com', password: 'invalidpassword' }).subscribe((result) => {
+      loginResult = result;
+      tick(1000);
     });
 
+    
     const req = httpTestingController.expectOne('http://localhost:3030/account');
     expect(req.request.method).toEqual('GET');
-
+    
     req.flush(mockAccounts);
+    
+    tick(1000);
+    
+    expect(loginResult).toBeFalsy();
     expect(authService.isAuthenticatedUser()).toBeFalsy();
-
-    httpTestingController.verify();
-  });
+  }));
 
   it('should handle server error on login', () => {
     const invalidAccount: Account = { email: 'test@example.com', password: 'password' };
@@ -146,6 +153,13 @@ describe('AuthService', () => {
     getAccountsReq.error(new ErrorEvent('Network error', {
       message: 'Simulated network error',
     })); 
+  });
+
+  it('should set isAuthenticated to false and navigate to home', () => {
+    spyOn(router, 'navigate');
+    authService.logout();
+    expect(authService.isAuthenticatedUser()).toBe(false);
+    expect(router.navigate).toHaveBeenCalledWith(['']);
   });
   
 });

@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
@@ -41,7 +42,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private taskService: TaskService,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    public snackbarService: SnackbarService
+    public snackbarService: SnackbarService,
+    public authService: AuthService
   ) {
     this.filterForm = this.fb.group({
       name: [''],
@@ -82,6 +84,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
       }
     )
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   isSameDate(date1: Date, date2: Date): boolean {

@@ -1,4 +1,10 @@
 <div class="dashboard">
+  <div class="dashboard__logout">
+    <button  mat-raised-button color="accent" (click)="logout()">
+      Sair
+      <mat-icon>power_settings_new</mat-icon>
+    </button>
+  </div>
   <div class="dashboard__filters" [formGroup]="filterForm">
     <mat-form-field class="dashboard__filter">
       <input matInput placeholder="Name" formControlName="name" (input)="updateAndApplyFilter('name')" />
