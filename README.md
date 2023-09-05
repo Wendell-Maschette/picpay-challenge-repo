@@ -1,27 +1,31 @@
 # PicpayChallenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 16.2.1.
 
-## Development server
+## Running project
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Começe instalando as dependências do projeto com `npm install`. Você precisa ter a versão do [Node Js](https://nodejs.org/en) instalada compatível, sendo entre ^16.14.0 e ^18.10.0.
 
-## Code scaffolding
+Execute `json-server --watch db.json --port 3030` para executar a api mock do [json-server](https://github.com/typicode/json-server). Não se esqueça de deixar aberto em uma outra aba do terminal, para que ele fique escutando suas ações.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Execute  `ng serve` para iniciar um servidor de desenvolvimento. Acesse `http://localhost:4200/` em seu navegador. A aplicação será recarregada automaticamente se você modificar qualquer um dos arquivos de origem.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Execute `ng build` para compilar o projeto. Os artifatos de compilação serão armazenados no diretório `dist/`.
 
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Libs utilizadas
+[ng2-currency-mask](https://www.npmjs.com/package/ng2-currency-mask) versão ^13.0.3": Esta é uma biblioteca que fornece uma máscara de entrada para campos de entrada de moeda.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+[sass](https://sass-lang.com/) versão "^1.66.1": Esta biblioteca é usada para compilar arquivos SASS (Syntactically Awesome Style Sheets) em CSS.
 
-## Further help
+## Informações sobre o desenvolvedor
+[Wendell C. Maschette](https://www.linkedin.com/in/wendell-maschette-737312196/), 22 anos | Santo André, SP
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Desenvolve há 5 anos, sendo quase 4 de experiência em fintechs e soluções de meios de pagamento. Atuou em projetos de backoffice e fluxos de pagamento como totem de parcelamento de boletos, compra de cupons, pix, doação, dashboards, geração de QR code, entre outros.
+
+Ama tecnologia e exerce a profissão também como hobby, buscando estar por dentro das novidades tecnológicas e adotar as melhores práticas do desenvolvimento.
