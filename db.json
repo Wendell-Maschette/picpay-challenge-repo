@@ -1707,16 +1707,10 @@
       "password": "usuario"
     },
     {
-      "email": "wendell.maschette@gmail.com",
+      "email": "teste@teste.com",
       "password": "123456",
       "confirmPassword": "123456",
       "id": 1
-    },
-    {
-      "email": "usuario@hotmail.com",
-      "password": "123456",
-      "confirmPassword": "123456",
-      "id": 2
     }
   ]
 }

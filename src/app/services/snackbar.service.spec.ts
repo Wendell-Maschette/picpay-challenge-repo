@@ -1,21 +1,45 @@
 import { TestBed } from '@angular/core/testing';
 
 import { SnackbarService } from './snackbar.service';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SnackbarService', () => {
-  let service: SnackbarService;
-  let snackBar: MatSnackBar;
+  let snackbarService: SnackbarService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MatSnackBarModule, NoopAnimationsModule]
+      imports: [MatSnackBarModule, BrowserAnimationsModule],
+      providers: [SnackbarService]
     });
-    service = TestBed.inject(SnackbarService);
+    snackbarService = TestBed.inject(SnackbarService);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(snackbarService).toBeTruthy();
+  });
+
+  it('should open a success snackbar', () => {
+    const openSpy = spyOn(snackbarService['snackBar'], 'open');
+    const message = 'Success message';
+
+    snackbarService.showSnackbar(message, 'success');
+
+    expect(openSpy).toHaveBeenCalledWith(message, 'X', {
+      duration: 5000,
+      panelClass: 'success-snackbar',
+    });
+  });
+
+  it('should open an error snackbar', () => {
+    const openSpy = spyOn(snackbarService['snackBar'], 'open');
+    const message = 'Error message';
+
+    snackbarService.showSnackbar(message, 'error');
+
+    expect(openSpy).toHaveBeenCalledWith(message, 'X', {
+      duration: 5000,
+      panelClass: 'error-snackbar',
+    });
   });
 });
