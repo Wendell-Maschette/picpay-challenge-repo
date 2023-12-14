@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ComponentsModule } from '../components.module';
+import { ComponentsModule } from '../../components/components.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { ModalRegisterAccountComponent } from '../modal-register-account/modal-register-account.component';
+import { ModalRegisterAccountComponent } from '../../components/modal-register-account/modal-register-account.component';
 import { of } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';

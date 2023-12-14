@@ -1,4 +1,4 @@
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
@@ -7,8 +7,8 @@ import { Task } from 'src/app/models/task.interface';
 import { TaskService } from 'src/app/services/task.service';
 import { ParamsForGetAllTasks } from 'src/app/models/params-for-get-all-tasks.interface';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalInsertTaskComponent } from '../modal-insert-task/modal-insert-task.component';
-import { ModalConfirmationDeleteComponent } from '../modal-confirmation-delete/modal-confirmation-delete.component';
+import { ModalInsertTaskComponent } from '../../components/modal-insert-task/modal-insert-task.component';
+import { ModalConfirmationDeleteComponent } from '../../components/modal-confirmation-delete/modal-confirmation-delete.component';
 import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({

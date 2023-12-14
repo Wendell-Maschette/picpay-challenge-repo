@@ -1,9 +1,9 @@
-import { ParamsForGetAllTasks } from './../../models/params-for-get-all-tasks.interface';
+import { ParamsForGetAllTasks } from '../../models/params-for-get-all-tasks.interface';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ComponentsModule } from '../components.module';
+import { ComponentsModule } from '../../components/components.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TaskService } from 'src/app/services/task.service';
 import { of, throwError } from 'rxjs';
