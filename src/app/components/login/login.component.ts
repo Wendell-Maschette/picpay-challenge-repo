@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { ModalRegisterAccountComponent } from '../modal-register-account/modal-r
 import { MatDialog } from '@angular/material/dialog';
 import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
 import { ErrorsStateMatcher } from 'src/app/helpers/util-functions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,15 +15,14 @@ import { ErrorsStateMatcher } from 'src/app/helpers/util-functions';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  constructor(
-    private authService: AuthService,
-    private snackbarService: SnackbarService,
-    private router: Router,
-    public dialog: MatDialog
-  ) {}
+  makeLogin$: Subscription = new Subscription;
+  private authService = inject(AuthService);
+  private snackbarService = inject(SnackbarService);
+  private router = inject(Router);
+  dialog = inject(MatDialog);
   isSubmited: boolean = false;
   hide: boolean = true;
-
+  
   form: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -37,32 +37,35 @@ export class LoginComponent {
   get password() {
     return this.form.get('password');
   }
-  
+
   matcher = new ErrorsStateMatcher();
-  
+
   onSubmit() {
-    const bodyLogin: Account = {
+
+    this.makeLogin$ = this.authService.login({
       email: this.email?.value,
       password: this.password?.value,
-    };
-    this.authService.login(bodyLogin).subscribe({
+    }).subscribe({
       next: (data: boolean) => {
         if (data) {
-          this.router.navigate(['/dashboard']); 
+          this.router.navigate(['/dashboard']);
         } else {
-        this.snackbarService.showSnackbar(MessageCode.LoginError, 'error');
+          this.snackbarService.showSnackbar(MessageCode.LoginError, 'error');
         }
       },
       error: (err: any) => {
         this.snackbarService.showSnackbar(MessageCode.Error, 'error');
       },
+      complete: () => {
+        this.makeLogin$.unsubscribe
+      }
     });
   }
 
   openModal() {
     const dialogRef = this.dialog.open(ModalRegisterAccountComponent, {
       disableClose: true,
-      width: '400px', 
+      width: '400px',
     });
 
     dialogRef.afterClosed().subscribe();

@@ -6,7 +6,9 @@ import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'login', redirectTo: '' },
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard()] },
+  { path: '**', redirectTo: 'path-to' }
 ];
 
 @NgModule({

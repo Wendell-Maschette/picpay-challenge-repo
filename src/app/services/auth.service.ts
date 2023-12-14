@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap} from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Account } from '../models/account.interface';
 import { Router } from '@angular/router';
@@ -13,37 +13,31 @@ export class AuthService {
   private dbUrl = 'http://localhost:3030';
   private isAuthenticated = false;
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-  ) {
-    const userLogged = localStorage.getItem('userLogged');
-    if (userLogged) {
-      this.isAuthenticated = true;
-    }
-  }
+  router = inject(Router)
+  http = inject(HttpClient)
 
   login(enteredAccount: Account): Observable<boolean> {
     return this.http.get<Account[]>(`${this.dbUrl}/account`).pipe(
       map((accounts) => {
-        const account = accounts.find(
-          (accountAlready) =>
-            accountAlready.email === enteredAccount.email &&
-            accountAlready.password === enteredAccount.password
+        const authenticated = accounts.some(
+          (account) =>
+            account.email === enteredAccount.email &&
+            account.password === enteredAccount.password
         );
-
-        if (!!account) {
-          localStorage.setItem('userLogged', 'accountAlready.email');
+  
+        if (authenticated) {
+          localStorage.setItem('userLogged', enteredAccount.email);
           this.isAuthenticated = true;
         } else {
           localStorage.removeItem('userLogged');
           this.isAuthenticated = false;
         }
-        return !!account;
+  
+        return authenticated;
       }),
       catchError(() => {
         this.isAuthenticated = false;
-        return of(false);
+        return of(false); // Erro na requisição
       })
     );
   }

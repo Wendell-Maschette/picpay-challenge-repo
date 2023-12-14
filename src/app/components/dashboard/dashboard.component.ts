@@ -1,5 +1,5 @@
 import { AuthService } from './../../services/auth.service';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -39,11 +39,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   filterForm: FormGroup;
 
   constructor(
-    private taskService: TaskService,
-    private fb: FormBuilder,
-    public dialog: MatDialog,
-    public snackbarService: SnackbarService,
-    public authService: AuthService
   ) {
     this.filterForm = this.fb.group({
       name: [''],
@@ -51,6 +46,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       date: [''],
     });
   }
+
+  taskService = inject(TaskService);
+  fb = inject(FormBuilder);
+  dialog = inject(MatDialog);
+  snackbarService = inject(SnackbarService);
+  authService = inject(AuthService);
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource();
