@@ -5,19 +5,8 @@
       <mat-icon>power_settings_new</mat-icon>
     </button>
   </div>
-  <div class="dashboard__filters" [formGroup]="filterForm">
-    <mat-form-field class="dashboard__filter">
-      <input matInput placeholder="Name" formControlName="name" />
-    </mat-form-field>
-    <mat-form-field class="dashboard__filter">
-      <input matInput placeholder="Title" formControlName="title" />
-    </mat-form-field>
-    <mat-form-field class="dashboard__filter" (click)="picker.open()">
-      <input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date" />
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </div>
+  <app-filters [filterForm]="filterForm" (search)="search()"></app-filters>
+
   <div class="dashboard__buttons-actions">
     <button mat-raised-button color="primary" (click)="search()">
       Pesquisar

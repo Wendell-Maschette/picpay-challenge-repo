@@ -7,6 +7,7 @@ import { ModalConfirmationDeleteComponent } from './modal-confirmation-delete/mo
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ModalRegisterAccountComponent } from './modal-register-account/modal-register-account.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { FiltersComponent } from './filters/filters.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     ModalConfirmationDeleteComponent,
     ModalRegisterAccountComponent,
     PaginationComponent,
+    FiltersComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     ModalInsertTaskComponent,
     ModalConfirmationDeleteComponent,
     ModalRegisterAccountComponent,
-    PaginationComponent
+    PaginationComponent,
+    FiltersComponent
   ]
 
 })

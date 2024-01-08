@@ -1,0 +1,30 @@
+@import '../../styles/mixins';
+
+.filters {
+    padding: 3rem;
+
+    &__inputs {
+        flex-direction: column;
+
+        @include large-screen {
+            flex-direction: row;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .mat-mdc-form-field {
+            width: 100% !important;
+        }
+    }
+
+    &__buttons-actions {
+        padding: 1rem 3rem;
+        display: flex;
+        gap: 1rem;
+    }
+
+    &__logout {
+        display: flex;
+        justify-content: end;
+    }
+}

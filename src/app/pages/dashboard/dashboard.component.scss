@@ -6,19 +6,6 @@
         justify-content: end;
     }
 
-    &__filters {
-        padding: 2rem;
-    }
-
-    &__filter {
-        width: 100%;
-
-        @include large-screen {
-            margin: 0 1rem;
-            width: 20%;
-        }
-    }
-
     &__buttons-actions {
         padding: 1rem 3rem;
         display: flex;
