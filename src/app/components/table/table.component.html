@@ -1,0 +1,41 @@
+<mat-card class="table-container">
+    <mat-table [dataSource]="dataSource" matSort>
+        <!-- Definição das colunas -->
+        <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                <span class="table-container__header-text">{{ columnHeaders[column] }}</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let item; let i = index" [attr.data-title]="column">
+                <ng-container *ngIf="column !== 'actions' && column !== 'actions-mobile'">
+                    {{ item[column] }}
+                </ng-container>
+                <ng-container *ngIf="column === 'actions'">
+                    <button class="action__edit" mat-icon-button color="primary" (click)="editItem(i)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button class="action__delete" mat-icon-button color="warn" (click)="deleteItem(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="column === 'actions-mobile'">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Ações">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="editItem(i)">
+                            <mat-icon>edit</mat-icon>
+                            <span>Editar</span>
+                        </button>
+                        <button mat-menu-item (click)="deleteItem(i)">
+                            <mat-icon>delete</mat-icon>
+                            <span>Excluir</span>
+                        </button>
+                    </mat-menu>
+                </ng-container>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</mat-card>
