@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Task } from '../models/task.interface';
-import { ParamsForGetAllTasks } from '../models/params-for-get-all-tasks.interface';
+import { Filters, ParamsForGetAllTasks } from '../models/params-for-get-all-tasks.interface';
 
 
 
@@ -14,25 +14,30 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
-  getAllTasks(reqParams: ParamsForGetAllTasks): Observable<Task[]> {
-    let queryParams = new HttpParams();
-
-    typeof reqParams.actualPage === 'number' ? queryParams = queryParams.set('_page', reqParams.actualPage) : '';
-    typeof reqParams.limit === 'number' ? queryParams = queryParams.set('_limit', reqParams.limit) : '';
-
-    const activeFilter = reqParams.filters.name || reqParams.filters.date || reqParams.filters.title;
-    if (activeFilter) {
-      const activeFilterKey = Object.keys(reqParams.filters).find(key => reqParams.filters[key] === activeFilter);
-      activeFilterKey ? queryParams = queryParams.set(activeFilterKey, activeFilter.trim()) : ''
+  getTasks(reqParams?: Filters): Observable<Task[]> {
+    const queryParams: string[] = [];
+  
+    if (reqParams?.name) {
+      queryParams.push(`name_like=^${reqParams.name}`);
     }
-    
-    reqParams.sort ? queryParams = queryParams.set('_sort', reqParams.sort) : undefined;
-    reqParams.order ? queryParams = queryParams.set('_order', reqParams.order) : undefined;
-
-    let url = `${this.baseUrl}/tasks`;
-    
-    return this.http.get<Task[]>(url, { params: queryParams });
+  
+    if (reqParams?.title) {
+      queryParams.push(`title_like=^${reqParams.title}`);
+    }
+  
+    if (reqParams?.date) {
+      queryParams.push(`date_like=^${reqParams.date}`);
+    }
+  
+    const defaultParams = ['_limit=10', '_page=0', '_sort=ASC'];  
+    const queryString = queryParams.length > 0 ? `?${queryParams.join('&')}` : '';
+    const defaultQueryString = `?${defaultParams.join('&')}`;
+  
+    const url = `${this.baseUrl}/tasks${queryString}${queryString ? '&' : ''}${defaultQueryString}`;
+  
+    return this.http.get<Task[]>(url);
   }
+  
 
   createTask(task: Task): Observable<Task> {
     return this.http.post<Task>(`${this.baseUrl}/tasks`, task);

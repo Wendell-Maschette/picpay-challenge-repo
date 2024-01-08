@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -16,7 +17,7 @@ import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service'
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements OnInit {
   dataSource!: MatTableDataSource<Task>;
   displayedColumns: string[] = ['name', 'title', 'value', 'date', 'isPayed', 'actions', 'actions-mobile'];
   actualPage: number = 1;
@@ -28,10 +29,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   sortField?: 'name' | 'title' | 'value' | 'date' | 'isPayed';
   sortOrder?: 'asc' | 'desc';
 
-  private reqParams: ParamsForGetAllTasks = {
-    filters: '',
-    actualPage: this.actualPage
-  }
+  getTasks$: Subscription = new Subscription;
+
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('dateInput') dateInput!: ElementRef<HTMLInputElement>;
@@ -56,92 +55,29 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.dataSource = new MatTableDataSource();
     this.dataSource.sort = this.sort;
-    this.getTotalItemsDetails();
+    this.search()
   }
 
-  ngAfterViewInit(): void {
-    this.filterTasks();
-  }
-
-  getTasks(reqParams: ParamsForGetAllTasks) {
-    this.taskService.getAllTasks(reqParams).subscribe({
+  search() {
+    this.getTasks$ = this.taskService.getTasks(this.filterForm.value).subscribe({
       next: (tasksDataResponse: Task[]) => {
         this.dataSource.data = tasksDataResponse;
       },
       error: (err: any) => {
         this.snackbarService.showSnackbar(MessageCode.TaskGetError, 'error');
+      },
+      complete: () => {
+        console.log(this.filterForm.value)
+        this.getTasks$.unsubscribe;
       }
-    });
-  }
-
-  getTotalItemsDetails() {
-    this.taskService.getAllTasks({
-      filters: '',
-      order: ''
-    }).subscribe(
-      (totalItemsResponse) => {
-        this.totalItems = totalItemsResponse.length
-        this.totalPages = Math.ceil(this.totalItems / 10);
-        this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-      }
-    )
+    })
   }
 
   logout() {
     this.authService.logout();
   }
 
-  isSameDate(date1: Date, date2: Date): boolean {
-    return (
-      date1.getFullYear() === date2.getFullYear() &&
-      date1.getMonth() === date2.getMonth() &&
-      date1.getDate() === date2.getDate()
-    );
-  }
-
-  filterTasks() {
-    const filterParams = this.reqParams;
-    filterParams.filters = this.filterForm.value
-    this.getTasks(filterParams)
-  }
-
-  updateAndApplyFilter(fieldName: string) {
-    const filters = this.filterForm.value;
-
-    if (filters[fieldName]) {
-      filters[fieldName] = filters[fieldName].charAt(0).toUpperCase() + filters[fieldName].slice(1);
-    }
-
-    Object.keys(filters).forEach(key => {
-      if (key !== fieldName) {
-        this.filterForm.get(key)?.setValue('');
-      }
-    });
-
-    this.filterTasks();
-  }
-
-  sortBy() {
-    const sortedParams: ParamsForGetAllTasks = this.reqParams;
-    sortedParams.sort = this.sort.active;
-    sortedParams.order = this.sortOrder;
-    this.actualPage = 1
-    sortedParams.actualPage = this.actualPage;
-    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    this.getTasks(sortedParams)
-  }
-
-  onPageChange(newPage: number) {
-    this.actualPage = newPage;
-
-    const pageChangeParams: ParamsForGetAllTasks = { ...this.reqParams };
-    pageChangeParams.actualPage = this.actualPage;
-    pageChangeParams.limit = this.pageSize;
-
-    this.getTasks(pageChangeParams);
-  }
-
-  openModal(itemToEdit: Task | null = null) {
+  insertTask(itemToEdit: Task | null = null) {
     const dialogRef = this.dialog.open(ModalInsertTaskComponent, {
       disableClose: true,
       width: '400px',
@@ -153,7 +89,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openModalConfirmationDelete(taskId: number) {
+  confirmationDelete(taskId: number) {
     const dialogRef = this.dialog.open(ModalConfirmationDeleteComponent, {
       disableClose: true,
       width: '400px',

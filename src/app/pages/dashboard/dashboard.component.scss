@@ -19,8 +19,10 @@
         }
     }
 
-    &__add-button {
+    &__buttons-actions {
         padding: 1rem 3rem;
+        display: flex;
+        gap: 1rem;
     }
 
     &__table-container {

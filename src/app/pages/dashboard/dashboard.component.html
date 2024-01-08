@@ -1,26 +1,29 @@
 <div class="dashboard">
   <div class="dashboard__logout">
-    <button  mat-raised-button color="accent" (click)="logout()">
+    <button mat-raised-button color="accent" (click)="logout()">
       Sair
       <mat-icon>power_settings_new</mat-icon>
     </button>
   </div>
   <div class="dashboard__filters" [formGroup]="filterForm">
     <mat-form-field class="dashboard__filter">
-      <input matInput placeholder="Name" formControlName="name" (input)="updateAndApplyFilter('name')" />
+      <input matInput placeholder="Name" formControlName="name" />
     </mat-form-field>
     <mat-form-field class="dashboard__filter">
-      <input matInput placeholder="Title" formControlName="title" (input)="updateAndApplyFilter('title')" />
+      <input matInput placeholder="Title" formControlName="title" />
     </mat-form-field>
     <mat-form-field class="dashboard__filter" (click)="picker.open()">
-      <input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date"
-        (input)="updateAndApplyFilter('date')" />
+      <input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </div>
-  <div class="dashboard__add-button">
-    <button mat-raised-button color="primary" (click)="openModal()">
+  <div class="dashboard__buttons-actions">
+    <button mat-raised-button color="primary" (click)="search()">
+      Pesquisar
+      <mat-icon>search</mat-icon>
+    </button>
+    <button mat-raised-button color="accent" (click)="insertTask()">
       Add task
       <mat-icon>add</mat-icon>
     </button>
@@ -28,35 +31,35 @@
   <mat-card class="dashboard__table-container">
     <mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortBy()">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
           <span class="dashboard__header-text">Usuário</span>
         </mat-header-cell>
         <mat-cell *matCellDef="let item">{{ item.name }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="title">
-        <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortBy()">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
           <span class="dashboard__header-text">Titulo</span>
         </mat-header-cell>
         <mat-cell *matCellDef="let item">{{ item.title }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="value">
-        <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortBy()">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
           <span class="dashboard__header-text">Valor</span>
         </mat-header-cell>
         <mat-cell *matCellDef="let item">{{ item.value | currency: 'BRL' }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="date">
-        <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortBy()">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
           <span class="dashboard__header-text">Data</span>
         </mat-header-cell>
         <mat-cell *matCellDef="let item">{{ item.date | date: 'dd/MM/yyyy' }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="isPayed">
-        <mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortBy()">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
           <span class="task-list__header-text">Pago</span>
         </mat-header-cell>
         <mat-cell *matCellDef="let item">{{ item.isPayed ? 'Sim' : 'Não' }}</mat-cell>
@@ -70,10 +73,11 @@
         <mat-header-cell *matHeaderCellDef>
         </mat-header-cell>
         <mat-cell *matCellDef="let item">
-          <button class="action__edit" mat-icon-button color="primary" (click)="openModal(item)">
+          <button class="action__edit" mat-icon-button color="primary" (click)="insertTask(item)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button #actionDelete class="action__delete" mat-icon-button color="warn" (click)="openModalConfirmationDelete(item.id)">
+          <button #actionDelete class="action__delete" mat-icon-button color="warn"
+            (click)="confirmationDelete(item.id)">
             <mat-icon>delete</mat-icon>
           </button>
         </mat-cell>
@@ -89,11 +93,11 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="openModal(item)">
+            <button mat-menu-item (click)="insertTask(item)">
               <mat-icon>edit</mat-icon>
               <span>Editar</span>
             </button>
-            <button mat-menu-item (click)="openModalConfirmationDelete(item.id)">
+            <button mat-menu-item (click)="confirmationDelete(item.id)">
               <mat-icon>delete</mat-icon>
               <span>Excluir</span>
             </button>
@@ -103,6 +107,6 @@
     </mat-table>
   </mat-card>
   <div class="dashboard__pagination">
-    <app-pagination [pageNumbers]="pageNumbers" (pageChange)="onPageChange($event)"></app-pagination>
+    <app-pagination [pageNumbers]="pageNumbers"></app-pagination>
   </div>
 </div>
