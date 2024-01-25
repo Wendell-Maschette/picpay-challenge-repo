@@ -2,8 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Task } from 'src/app/models/task.interface';
-import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
-import { TaskService } from 'src/app/services/task.service';
+import { MessageCode, SnackbarService } from 'src/app/services/snack-bar/snackbar.service';
+import { TaskService } from 'src/app/services/tasks/task.service';
 
 @Component({
   selector: 'app-modal-insert-task',

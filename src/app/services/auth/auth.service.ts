@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map, switchMap} from 'rxjs/operators';
 import { of } from 'rxjs';
-import { Account } from '../models/account.interface';
+import { Account } from '../../models/account.interface';
 import { Router } from '@angular/router';
 
 @Injectable({

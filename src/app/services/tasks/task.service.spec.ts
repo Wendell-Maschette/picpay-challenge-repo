@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
 import { TaskService } from './task.service';
-import { ParamsForGetAllTasks } from '../models/params-for-get-all-tasks.interface';
-import { Task } from '../models/task.interface';
+import { ParamsForGetAllTasks } from '../../models/params-for-get-all-tasks.interface';
+import { Task } from '../../models/task.interface';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { throwError } from 'rxjs'; 
 

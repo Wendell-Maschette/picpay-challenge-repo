@@ -1,20 +1,22 @@
 @import '../../styles/mixins';
 
 .pagination {
-    margin-top: 1rem;
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.5rem;
+    height: 2rem;
+    background-color: red;
 
-    .mat-button-toggle-group {
-        border: 0;
-        border-radius: 0;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-
-        @include large-screen {
-            justify-content: flex-end;
-            margin: 0 3rem;
-        }
-
+    cursor: pointer;
+  
+    span {
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+      background-color: red;
+      height: 2rem;
+      &:hover {
+        background-color: red;
+      }
     }
-
-}
+  }
+  

@@ -5,10 +5,10 @@ import { DashboardComponent } from './dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentsModule } from '../../components/components.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TaskService } from 'src/app/services/task.service';
+import { TaskService } from 'src/app/services/tasks/task.service';
 import { of, throwError } from 'rxjs';
-import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { MessageCode, SnackbarService } from 'src/app/services/snack-bar/snackbar.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;

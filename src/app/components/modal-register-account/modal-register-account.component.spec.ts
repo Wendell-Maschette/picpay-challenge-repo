@@ -3,8 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { ModalRegisterAccountComponent } from './modal-register-account.component';
-import { AuthService } from 'src/app/services/auth.service';
-import { SnackbarService, MessageCode } from 'src/app/services/snackbar.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { SnackbarService, MessageCode } from 'src/app/services/snack-bar/snackbar.service';
 import { ComponentsModule } from '../components.module';
 
 describe('ModalRegisterAccountComponent', () => {

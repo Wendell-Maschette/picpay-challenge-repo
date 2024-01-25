@@ -7,9 +7,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ModalRegisterAccountComponent } from '../../components/modal-register-account/modal-register-account.component';
 import { of } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
-import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
+import { MessageCode, SnackbarService } from 'src/app/services/snack-bar/snackbar.service';
 
 
 describe('LoginComponent', () => {

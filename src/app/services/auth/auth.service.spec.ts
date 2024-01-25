@@ -2,7 +2,7 @@ import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Account } from '../models/account.interface';
+import { Account } from '../../models/account.interface';
 import { Router } from '@angular/router';
 
 describe('AuthService', () => {

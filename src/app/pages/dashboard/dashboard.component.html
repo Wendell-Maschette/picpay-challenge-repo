@@ -19,8 +19,7 @@
   </div>
 
   <app-table [dataSource]="dataSource" [displayedColumns]="displayedColumns"></app-table>
-
-  <div class="dashboard__pagination">
-    <app-pagination [pageNumbers]="pageNumbers"></app-pagination>
-  </div>
+  
+  <app-pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+    (pageChange)="onPageChange($event)"></app-pagination>
 </div>

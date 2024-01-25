@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { Account } from 'src/app/models/account.interface';
 import { ModalRegisterAccountComponent } from '../../components/modal-register-account/modal-register-account.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
+import { MessageCode, SnackbarService } from 'src/app/services/snack-bar/snackbar.service';
 import { ErrorsStateMatcher } from 'src/app/helpers/util-functions';
 import { Subscription } from 'rxjs';
 

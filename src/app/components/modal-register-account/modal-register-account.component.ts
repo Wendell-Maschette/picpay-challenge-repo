@@ -4,8 +4,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ConfirmedValidator } from 'src/app/helpers/util-functions';
 import { Account } from 'src/app/models/account.interface';
-import { AuthService } from 'src/app/services/auth.service';
-import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { MessageCode, SnackbarService } from 'src/app/services/snack-bar/snackbar.service';
 
 @Component({
   selector: 'app-modal-register-account',

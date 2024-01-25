@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
-import { TaskService } from 'src/app/services/task.service';
+import { MessageCode, SnackbarService } from 'src/app/services/snack-bar/snackbar.service';
+import { TaskService } from 'src/app/services/tasks/task.service';
 
 @Component({
   selector: 'app-modal-confirmation-delete',

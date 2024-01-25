@@ -7,7 +7,6 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { MaterialModule } from '../material.module';
 import { ComponentsModule } from '../components/components.module';
 
-
 @NgModule({
   declarations: [
     LoginComponent,
@@ -17,7 +16,7 @@ import { ComponentsModule } from '../components/components.module';
     MaterialModule,
     ReactiveFormsModule,
     CurrencyMaskModule,
-    ComponentsModule
+    ComponentsModule,
   ]
 })
 export class PagesModule { }

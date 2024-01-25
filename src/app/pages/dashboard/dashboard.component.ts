@@ -1,16 +1,17 @@
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Task } from 'src/app/models/task.interface';
-import { TaskService } from 'src/app/services/task.service';
+import { TaskService } from 'src/app/services/tasks/task.service';
 import { ParamsForGetAllTasks } from 'src/app/models/params-for-get-all-tasks.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalInsertTaskComponent } from '../../components/modal-insert-task/modal-insert-task.component';
 import { ModalConfirmationDeleteComponent } from '../../components/modal-confirmation-delete/modal-confirmation-delete.component';
-import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service';
+import { MessageCode, SnackbarService } from 'src/app/services/snack-bar/snackbar.service';
+import { TaskListResponse } from 'src/app/models/get-task-list.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,17 +21,10 @@ import { MessageCode, SnackbarService } from 'src/app/services/snackbar.service'
 export class DashboardComponent implements OnInit {
   dataSource!: MatTableDataSource<Task>;
   displayedColumns: string[] = ['name', 'title', 'value', 'date', 'isPayed', 'actions', 'actions-mobile'];
-  actualPage: number = 1;
-  pageSize: number = 10;
-  totalItems: number = 0;
-  totalPages: number = 0;
-
-  pageNumbers: number[] = [];
-  sortField?: 'name' | 'title' | 'value' | 'date' | 'isPayed';
-  sortOrder?: 'asc' | 'desc';
-
   getTasks$: Subscription = new Subscription;
-
+  totalItems: number = 0;
+  itemsPerPage: number = 10;
+  currentPage: number = 1;
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('dateInput') dateInput!: ElementRef<HTMLInputElement>;
@@ -58,10 +52,21 @@ export class DashboardComponent implements OnInit {
     this.search()
   }
 
-  search() {
-    this.getTasks$ = this.taskService.getTasks(this.filterForm.value).subscribe({
-      next: (tasksDataResponse: Task[]) => {
-        this.dataSource.data = tasksDataResponse;
+  search(paginationParam?: any) {
+    let queryParams = {
+      ...this.filterForm.value
+    }
+    if (paginationParam) {
+      queryParams = {
+        ...this.filterForm.value,
+        ...this.filterForm.value,
+      }
+    }
+
+    this.getTasks$ = this.taskService.getTasks(queryParams).subscribe({
+      next: (tasksDataResponse: TaskListResponse) => {
+        this.totalItems = tasksDataResponse.totalItems;
+        this.dataSource.data = tasksDataResponse.data;
       },
       error: (err: any) => {
         this.snackbarService.showSnackbar(MessageCode.TaskGetError, 'error');
@@ -99,5 +104,15 @@ export class DashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       result ? window.location.reload() : '';
     });
+  }
+
+  onPageChange(page: number) {
+    this.currentPage = page;
+    const params: ParamsForGetAllTasks = {
+      actualPage: this.currentPage,
+      limit: this.itemsPerPage
+    };
+
+    this.search(params)
   }
 }

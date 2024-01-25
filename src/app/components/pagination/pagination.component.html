@@ -1,7 +1,7 @@
 <div class="pagination">
-    <mat-button-toggle-group [value]="actualPage" name="pageToggle" aria-label="Page Navigation">
-        <mat-button-toggle [value]="page" *ngFor="let page of pageNumbers" (click)="onPageChange(page)">
-            {{ page }}
-        </mat-button-toggle>
-    </mat-button-toggle-group>
+    <span *ngFor="let page of getPageNumbers()" (click)="onPageClick(page)">
+        <p>
+            pagina{{ page }}
+        </p>
+    </span>
 </div>
