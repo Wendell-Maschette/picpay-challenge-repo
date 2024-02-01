@@ -1,0 +1,18 @@
+@import './../../../../shared/styles/mixins';
+
+.home {
+    &__logout {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &__buttons-actions {
+        padding: 1rem 3rem;
+        display: flex;
+        gap: 1rem;
+    }
+
+    &__header-text {}
+
+    &__pagination {}
+}

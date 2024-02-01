@@ -1,0 +1,22 @@
+@import './../../../../shared/styles/mixins';
+
+.pagination {
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.5rem;
+    height: 2rem;
+    background-color: red;
+
+    cursor: pointer;
+  
+    span {
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+      background-color: red;
+      height: 2rem;
+      &:hover {
+        background-color: red;
+      }
+    }
+  }
+  

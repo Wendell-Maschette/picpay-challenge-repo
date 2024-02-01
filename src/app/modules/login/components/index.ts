@@ -1,0 +1,1 @@
+export * from './modal-register-account/modal-register-account.component'

@@ -1,0 +1,30 @@
+@import './../../../../shared/styles/mixins';
+
+.modal {
+    &__content {
+        padding: 2rem;
+    }
+
+    &__title {}
+
+    &__field {
+        width: 100%;
+
+        label {}
+    }
+
+    &__checkbox {
+
+        &-input {}
+
+        &-label {}
+    }
+
+    &__actions {
+        margin-top: 1rem;
+
+        .modal__button {
+            margin-right: 1rem;
+        }
+    }
+}

@@ -1,0 +1,5 @@
+export * from './filters/filters.component'
+export * from './modal-confirmation-delete/modal-confirmation-delete.component'
+export * from './modal-insert-task/modal-insert-task.component'
+export * from './pagination/pagination.component'
+export * from './table/table.component'

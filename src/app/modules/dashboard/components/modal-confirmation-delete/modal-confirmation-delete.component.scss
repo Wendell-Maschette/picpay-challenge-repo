@@ -1,0 +1,24 @@
+@import './../../../../shared/styles/mixins';
+
+.modal {
+    &__content {
+        padding: 2rem;
+    }
+
+    &__title {
+        width: 100%;
+    }
+
+    &__actions {
+       margin-top: 1rem;
+    }
+
+    &__button {
+        margin-right: 1rem;
+        &--confirm {
+        }
+
+        &--cancel {
+        }
+    }
+}

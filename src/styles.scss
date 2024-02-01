@@ -1,6 +1,6 @@
 @import '@angular/material/theming';
-@import 'app/styles/mixins';
-@import 'app/styles/variables';
+@import './app/shared/styles/mixins';
+@import './app/shared/styles/variables';
 
 html, body { height: 100%; background-color: $background-color; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
