@@ -9,5 +9,5 @@ export interface ParamsForGetAllTasks {
 export interface Filters {
     name?: string;
     title?: string;
-    date: any;
+    date: string;
 }

@@ -1,4 +1,4 @@
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -18,6 +18,7 @@ export class TaskService {
 
   getTasks(reqParams?: ParamsForGetAllTasks): Observable<TaskListResponse> {
     const queryParams: string[] = [];
+    console.log(reqParams)
 
     if (reqParams?.filters?.name) {
       queryParams.push(`name_like=^${reqParams.filters.name}`);

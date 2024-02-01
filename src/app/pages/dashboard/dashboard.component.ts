@@ -1,6 +1,12 @@
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  inject,
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,18 +16,29 @@ import { ParamsForGetAllTasks } from 'src/app/models/params-for-get-all-tasks.in
 import { MatDialog } from '@angular/material/dialog';
 import { ModalInsertTaskComponent } from '../../components/modal-insert-task/modal-insert-task.component';
 import { ModalConfirmationDeleteComponent } from '../../components/modal-confirmation-delete/modal-confirmation-delete.component';
-import { MessageCode, SnackbarService } from 'src/app/services/snack-bar/snackbar.service';
+import {
+  MessageCode,
+  SnackbarService,
+} from 'src/app/services/snack-bar/snackbar.service';
 import { TaskListResponse } from 'src/app/models/get-task-list.interface';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
   dataSource!: MatTableDataSource<Task>;
-  displayedColumns: string[] = ['name', 'title', 'value', 'date', 'isPayed', 'actions', 'actions-mobile'];
-  getTasks$: Subscription = new Subscription;
+  displayedColumns: string[] = [
+    'name',
+    'title',
+    'value',
+    'date',
+    'isPayed',
+    'actions',
+    'actions-mobile',
+  ];
+  getTasks$: Subscription = new Subscription();
   totalItems: number = 0;
   itemsPerPage: number = 10;
   currentPage: number = 1;
@@ -31,8 +48,7 @@ export class DashboardComponent implements OnInit {
 
   filterForm: FormGroup;
 
-  constructor(
-  ) {
+  constructor() {
     this.filterForm = this.fb.group({
       name: [''],
       title: [''],
@@ -49,19 +65,14 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.dataSource = new MatTableDataSource();
     this.dataSource.sort = this.sort;
-    this.search()
+    this.search();
   }
 
   search(paginationParam?: any) {
-    let queryParams = {
-      ...this.filterForm.value
-    }
-    if (paginationParam) {
-      queryParams = {
-        ...this.filterForm.value,
-        ...this.filterForm.value,
-      }
-    }
+    const queryParams: ParamsForGetAllTasks = {
+      filters: { ...this.filterForm.value },
+      actualPage: paginationParam?.actualPage ? paginationParam.actualPage : 1,
+    };
 
     this.getTasks$ = this.taskService.getTasks(queryParams).subscribe({
       next: (tasksDataResponse: TaskListResponse) => {
@@ -72,10 +83,10 @@ export class DashboardComponent implements OnInit {
         this.snackbarService.showSnackbar(MessageCode.TaskGetError, 'error');
       },
       complete: () => {
-        console.log(this.filterForm.value)
+        console.log(this.filterForm.value);
         this.getTasks$.unsubscribe;
-      }
-    })
+      },
+    });
   }
 
   logout() {
@@ -89,7 +100,7 @@ export class DashboardComponent implements OnInit {
       data: itemToEdit,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       result ? window.location.reload() : '';
     });
   }
@@ -101,7 +112,7 @@ export class DashboardComponent implements OnInit {
       data: taskId,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       result ? window.location.reload() : '';
     });
   }
@@ -110,9 +121,9 @@ export class DashboardComponent implements OnInit {
     this.currentPage = page;
     const params: ParamsForGetAllTasks = {
       actualPage: this.currentPage,
-      limit: this.itemsPerPage
+      limit: this.itemsPerPage,
     };
 
-    this.search(params)
+    this.search(params);
   }
 }
