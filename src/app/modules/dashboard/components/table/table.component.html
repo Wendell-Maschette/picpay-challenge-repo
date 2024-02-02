@@ -7,7 +7,7 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let item; let i = index" [attr.data-title]="column">
                 <ng-container
-                    *ngIf="column !== 'actions' && column !== 'actions-mobile' && column !== 'date' && column !== 'value' &&  column !== 'isPayed'">
+                    *ngIf="defaultColumValidator(column)">
                     {{ item[column] }}
                 </ng-container>
                 <ng-container *ngIf="column === 'date'">
@@ -20,8 +20,6 @@
                     <mat-icon color="primary" *ngIf="item[column] == true"> check </mat-icon> 
                     <mat-icon color="warn" *ngIf="item[column] != true" > clear </mat-icon> 
                 </ng-container>
-
-
                 <ng-container *ngIf="column === 'actions'">
                     <button class="action__edit" mat-icon-button color="primary" (click)="editItem(i)">
                         <mat-icon>edit</mat-icon>
