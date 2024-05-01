@@ -35,6 +35,24 @@ export class PaginationComponent {
     }
   }
 
+  onSkipPagesClick(direction: 'NEXT' | 'PREVIOUS') {
+    const pagesToSkip = 5;
+    let targetPage: number;
+  
+    if (direction === 'NEXT') {
+      targetPage = Math.min(this.activePage + pagesToSkip, this.totalPages);
+    } else if (direction === 'PREVIOUS') {
+      targetPage = Math.max(this.activePage - pagesToSkip, 1);
+    } else {
+      throw new Error('Direction must be NEXT or PREVIOUS');
+    }
+  
+    this.activePage = targetPage;
+    this.pageChange.emit(this.activePage);
+  }
+  
+  
+
   onPreviousClick() {
     if (this.activePage > 1) {
       this.activePage--;
