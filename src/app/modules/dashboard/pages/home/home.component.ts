@@ -70,10 +70,14 @@ export class HomeComponent implements OnInit {
   }
 
   search(paginationParam?: any) {
+    console.log(paginationParam)
     const queryParams: ParamsForGetAllTasks = {
       filters: { ...this.filterForm.value },
       actualPage: paginationParam?.actualPage ? paginationParam.actualPage : 1,
     };
+
+    console.log(queryParams)
+
 
     this.getTasks$ = this.taskService.getTasks(queryParams).subscribe({
       next: (tasksDataResponse: TaskListResponse) => {
@@ -84,7 +88,6 @@ export class HomeComponent implements OnInit {
         this.snackbarService.showSnackbar(MessageCode.TaskGetError, 'error');
       },
       complete: () => {
-        console.log(this.filterForm.value);
         this.getTasks$.unsubscribe;
       },
     });
@@ -120,7 +123,6 @@ export class HomeComponent implements OnInit {
       actualPage: this.currentPage,
       limit: this.itemsPerPage,
     };
-
     this.search(params);
   }
 }

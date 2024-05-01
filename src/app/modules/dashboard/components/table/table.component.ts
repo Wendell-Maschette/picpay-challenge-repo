@@ -28,6 +28,7 @@ export class TableComponent {
     actions: 'Ações',
     'actions-mobile': 'Ações',
   };
+  
 
   defaultColumValidator(columnParam: string): boolean {
     if (

@@ -1,22 +1,35 @@
 @import './../../../../shared/styles/mixins';
+@import './../../../../shared/styles/variables';
 
 .pagination {
-    margin-top: 2rem;
-    display: flex;
-    gap: 0.5rem;
-    height: 2rem;
-    background-color: red;
+  margin: 1rem 3rem;
+  padding-bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  height: 2rem;
+  justify-content: flex-end;
 
-    cursor: pointer;
-  
-    span {
-      padding: 0.3rem 0.5rem;
-      border-radius: 4px;
-      background-color: red;
-      height: 2rem;
-      &:hover {
-        background-color: red;
-      }
+  cursor: pointer;
+
+  span {
+    border-radius: 4px;
+    background-color: $ghost-color;
+    height: 2rem;
+    width: 1rem;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: $primary-color;
+    }
+    &.active {
+      background-color: $primary-color; 
     }
   }
-  
+
+  &__text {
+    margin: 0;
+  }
+}

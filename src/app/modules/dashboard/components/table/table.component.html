@@ -1,6 +1,5 @@
 <mat-card class="table-container">
     <mat-table [dataSource]="dataSource" matSort>
-        <!-- Definição das colunas -->
         <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
                 <span class="table-container__header-text">{{ columnHeaders[column] }}</span>

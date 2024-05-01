@@ -1,7 +1,9 @@
 <div class="pagination">
-    <span *ngFor="let page of getPageNumbers()" (click)="onPageClick(page)">
-        <p>
-            pagina{{ page }}
+    <button *ngIf="activePage !== 1" (click)="onPreviousClick()">Anterior</button>
+    <span *ngFor="let page of pageNumbers" (click)="onPageClick(page)" [class.active]="page === activePage">
+        <p class="pagination__text">
+            {{ page }}
         </p>
     </span>
+    <button *ngIf="activePage !== totalPages" (click)="onNextClick()">Próxima</button>
 </div>

@@ -6,7 +6,7 @@ Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli
 
 Começe instalando as dependências do projeto com `npm install`. Você precisa ter a versão do [Node Js](https://nodejs.org/en) instalada compatível, sendo entre ^16.14.0 e ^18.10.0.
 
-Execute `ng mock` para executar a api mock do [json-server](https://github.com/typicode/json-server). Não se esqueça de deixar aberto em uma outra aba do terminal, para que ele fique escutando suas ações.
+Execute `npm run mock` para executar a api mock do [json-server](https://github.com/typicode/json-server). Não se esqueça de deixar aberto em uma outra aba do terminal, para que ele fique escutando suas ações.
 
 Execute  `ng serve` para iniciar um servidor de desenvolvimento. Acesse `http://localhost:4200/` em seu navegador. A aplicação será recarregada automaticamente se você modificar qualquer um dos arquivos de origem.
 
