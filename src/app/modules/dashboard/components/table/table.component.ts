@@ -1,6 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject, } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Task } from 'src/app/modules/dashboard/models/task.interface';
+import { ModalConfirmationDeleteComponent } from '../modal-confirmation-delete/modal-confirmation-delete.component';
+import { ModalInsertTaskComponent } from '../modal-insert-task/modal-insert-task.component';
 
 @Component({
   selector: 'app-table',
@@ -28,6 +31,7 @@ export class TableComponent {
     actions: 'Ações',
     'actions-mobile': 'Ações',
   };
+  dialog = inject(MatDialog);
   
 
   defaultColumValidator(columnParam: string): boolean {
@@ -43,11 +47,27 @@ export class TableComponent {
     return false
   }
 
-  editItem(index: number) {
-    // Lógica para editar item
+  editTask(itemToEdit: Task) {
+    const dialogRef = this.dialog.open(ModalInsertTaskComponent, {
+      disableClose: true,
+      width: '400px',
+      data: itemToEdit,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      result ? window.location.reload() : '';
+    });
   }
 
-  deleteItem(index: number) {
-    // Lógica para excluir item
+  confirmationDelete(taskId: number) {
+    const dialogRef = this.dialog.open(ModalConfirmationDeleteComponent, {
+      disableClose: true,
+      width: '400px',
+      data: taskId,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      result ? window.location.reload() : '';
+    });
   }
 }

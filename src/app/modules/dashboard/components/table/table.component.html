@@ -20,10 +20,10 @@
                     <mat-icon color="warn" *ngIf="item[column] != true" > clear </mat-icon> 
                 </ng-container>
                 <ng-container *ngIf="column === 'actions'">
-                    <button class="action__edit" mat-icon-button color="primary" (click)="editItem(i)">
+                    <button class="action__edit" mat-icon-button color="primary" (click)="editTask(item)">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button class="action__delete" mat-icon-button color="warn" (click)="deleteItem(i)">
+                    <button class="action__delete" mat-icon-button color="warn" (click)="confirmationDelete(item.id)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </ng-container>
@@ -32,11 +32,11 @@
                         <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="editItem(i)">
+                        <button mat-menu-item (click)="editTask(item)">
                             <mat-icon>edit</mat-icon>
                             <span>Editar</span>
                         </button>
-                        <button mat-menu-item (click)="deleteItem(i)">
+                        <button mat-menu-item (click)="confirmationDelete(item.id)">
                             <mat-icon>delete</mat-icon>
                             <span>Excluir</span>
                         </button>
